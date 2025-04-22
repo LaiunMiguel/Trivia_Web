@@ -1,0 +1,50 @@
+.header {
+  width: 100%;
+  background-color:  var(--navbar-color);
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-image {
+  width: 50px; /* Set a fixed width for the logo */
+  height: auto;
+}
+
+.app-title {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .header {
+    padding: 0.8rem 1.5rem;
+  }
+  
+  .app-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Animación para el header */
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.header {
+  animation: slideDown 0.5s ease-out;
+}

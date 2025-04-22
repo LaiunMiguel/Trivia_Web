@@ -1,0 +1,68 @@
+.MazoPregunta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Estilo para el botón de siguiente pregunta */
+.MazoPregunta button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: bold;
+  margin-top: 1.5rem;
+  min-width: 200px;
+}
+
+.MazoPregunta button:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.MazoPregunta button:disabled {
+  background-color: var(--disabled-color);
+  color: var(--disabled-text);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .MazoPregunta {
+    padding: 1rem;
+    width: 95%;
+  }
+  
+  .MazoPregunta button {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Mejoras de accesibilidad */
+.MazoPregunta button:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* Animación para transición entre preguntas */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.MazoPregunta > * {
+  animation: fadeIn 0.5s ease-out;
+}

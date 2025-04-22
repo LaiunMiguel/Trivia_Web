@@ -1,0 +1,62 @@
+.ModeSelected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.ModeSelected button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.ModeSelected button:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px rgba(67, 97, 238, 0.13);
+}
+
+.ModeSelected button:disabled {
+  background-color: var(--disabled-color);
+  color: var(--disabled-text);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .ModeSelected {
+    padding: 1rem;
+    width: 98%;
+  }
+  .ModeSelected button {
+    min-width: 120px;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+  }
+}
+
+.ModeSelected button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.ModeSelected > * {
+  animation: fadeIn 0.5s cubic-bezier(.4,0,.2,1);
+}

@@ -1,0 +1,54 @@
+:root {
+
+    /* Primary Theme */
+    --primary-color: #4361ee;         /* A vibrant blue for main actions */
+    --primary-hover: #364fc7;         /* A slightly darker blue for hover states */
+    --background-color: #f8f9fa;      /* Very light gray for backgrounds */
+    --text-color: #222;               /* Almost black for main text */
+    --border-radius: 12px;
+    --shadow: 0 4px 12px rgba(67, 97, 238, 0.08); /* Subtle blue shadow */
+    --disabled-color: #e0e0e0;        /* Light gray for disabled backgrounds */
+    --disabled-text: #888;            /* Medium gray for disabled text */
+    --transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    --text-hover: #3b55d9;            /* Slightly darker blue for text hover */
+
+    /* Navbar */
+    --navbar-color: #ffffff;          /* White navbar for clarity */
+
+    /* Footer */
+    --footer-color: #22223b;          /* Deep blue-gray for footer */
+    --footer-text-color: #f8f9fa;     /* Light text for footer */
+
+    /* Trivia Creator */
+    --correct-color: #2ecc71;         /* Green for correct answers */
+    --incorrect-color: #e74c3c;       /* Red for incorrect answers */
+    --background-color-creator: #f8f9fa;
+
+    /* Trivia */
+    --trivia-card-width: 80vw; 
+    --trivia-card-height: 50vh;
+    --trivia-transition-duration: 0.6s;
+    --trivia-shadow-color: rgba(67, 97, 238, 0.12);
+    --trivia-border-radius: 12px;
+    --trivia-background-color-front: #ffffff;
+    --trivia-background-color-back: #4361ee;
+    --trivia-background-color-option: #4361ee;
+    --trivia-background-color-option-hover: #3b55d9;
+    --trivia-background-color-correct: #2ecc71;
+    --trivia-background-color-incorrect: #e74c3c;
+}
+
+   
+  
+
+html {
+    background-color: var(--background-color);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    color: var(--text-color);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
