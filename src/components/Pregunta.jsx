@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import '../assets/css/preguntas.css';
+import React, { useState, useEffect } from "react";
+import "../assets/css/pregunta.css";
 
-const Pregunta = ({ questionData, onAnswer }) => {
+const Pregunta = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) => {
   const [flip, setFlip] = useState(false);
+  const [isAnswered, setIsAnswered] = useState(false);
 
   useEffect(() => {
     setFlip(false);
+    setIsAnswered(false);
   }, [questionData]);
 
   const handleFlip = () => {
     setFlip((prev) => !prev);
-    onAnswer();
   };
 
   return (
     <div
-      className={`preguntaTarjeta ${flip ? 'flipped' : ''}`}
+      className={`preguntaTarjeta ${flip ? "flipped" : ""}`}
       onClick={handleFlip}
     >
       <div className="preguntaTarjeta__cara preguntaTarjeta__frontal">
@@ -23,7 +24,37 @@ const Pregunta = ({ questionData, onAnswer }) => {
       </div>
 
       <div className="preguntaTarjeta__cara preguntaTarjeta__trasera">
-        {flip && <h2>{questionData.r}</h2>}
+        {flip && (
+          <div className="response">
+            <h2>{questionData.r}</h2>
+            <div className="honestMan">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onAnswerCorrect();
+                  setIsAnswered(true);
+                }}
+                disabled={isAnswered}
+                data-icon="✔"
+                title="Correcto"
+              >
+                Acerté
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onAnswerIncorrect();
+                  setIsAnswered(true);
+                }}
+                disabled={isAnswered}
+                data-icon="✖"
+                title="Incorrecto"
+              >
+                Fallé
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import TriviaSelected from "./TriviaSelected.jsx";
 
-const DeckSelector = ({ triviaSelected,timerSelected }) => {
+const TriviaConfig = ({ triviaSelected}) => {
 
   return (
     <div className="DeckConfigurator">
-        <TriviaSelected questionsData={triviaSelected} timeChosen={timerSelected} />
+        <TriviaSelected questionsData={triviaSelected} timeChosen={60} />
     </div>
   );
 };
 
-export default DeckSelector;
+export default TriviaConfig;

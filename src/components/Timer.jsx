@@ -20,9 +20,7 @@ const Timer = ({ timeLimit, isActive, onTimeUp }) => {
     }, [timeLimit]);
 
     return (
-        <div>
-            <h3>{timeLeft} segundos</h3>
-        </div>
+        timeLeft
     );
 };
 

@@ -2,8 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  min-height: 75vh;
+  justify-content: space-between;
 }
+
 /* Estilos responsivos */
 @media (max-width: 768px) {
   .App {

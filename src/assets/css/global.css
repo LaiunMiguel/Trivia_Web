@@ -25,8 +25,8 @@
     --background-color-creator: #f8f9fa;
 
     /* Trivia */
-    --trivia-card-width: 80vw; 
-    --trivia-card-height: 50vh;
+    --trivia-card-width: 70vw; 
+    --trivia-card-height: 55vh;
     --trivia-transition-duration: 0.6s;
     --trivia-shadow-color: rgba(67, 97, 238, 0.12);
     --trivia-border-radius: 12px;

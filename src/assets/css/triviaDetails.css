@@ -1,0 +1,27 @@
+.trivia-details {
+  background-color: rgba(67, 97, 238, 0.08);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-left: 4px solid var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.trivia-details p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+.buttons {
+  margin-top: auto;
+  display: flex;
+  gap: 1rem;
+}
+
+.buttons button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}

@@ -1,0 +1,136 @@
+.preguntaTarjeta {
+  min-height: fit-content;
+  min-width: fit-content;
+  width: var(--trivia-card-width);
+  height: var(--trivia-card-height);
+  perspective: 1000px;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform var(--trivia-transition-duration);
+  box-shadow: 0 4px 8px var(--trivia-shadow-color);
+  border-radius: var(--trivia-border-radius);
+  background-color: var(--trivia-background-color-front);
+}
+
+.preguntaTarjeta h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  text-align: center; 
+}
+
+.preguntaTarjeta__cara {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: var(--trivia-border-radius);
+}
+
+.preguntaTarjeta__frontal {
+  background-color: var(--trivia-background-color-front);
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+.preguntaTarjeta__trasera {
+  background-color: var(--trivia-background-color-back);
+  border: 1px solid #0077b6;
+  color: #fff;
+  transform: rotateY(180deg);
+}
+
+.preguntaTarjeta.flipped {
+  transform: rotateY(180deg);
+}
+
+.response {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.honestMan {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --trivia-card-width: 98vw;
+    --trivia-card-height: 320px;
+  }
+  .preguntaTarjeta {
+    min-width: 0;
+    width: 98vw;
+    height: 320px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px var(--trivia-shadow-color);
+  }
+  .preguntaTarjeta h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  .preguntaTarjeta__cara {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}
+
+.honestMan button {
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.honestMan button:first-child {
+  background: #43a047;
+  color: #fff;
+}
+
+.honestMan button:first-child:hover {
+  background: #388e3c;
+  transform: scale(1.05);
+}
+
+.honestMan button:last-child {
+  background: #e53935;
+  color: #fff;
+}
+
+.honestMan button:last-child:hover {
+  background: #b71c1c;
+  transform: scale(1.05);
+}
+
+button:disabled {
+    background-color: var(--disabled-color);
+    color: var(--disabled-text);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.honestMan button::before {
+  content: attr(data-icon);
+  font-size: 1.2rem;
+
+}

@@ -3,7 +3,7 @@ import PreguntaCreador from "./PreguntaCreador.jsx";
 import { handleShareGoogle } from "../utils/triviaUtils.js";
 import "../assets/css/triviaCreator.css";
 
-const TriviaCreator = () => {
+const CreatorSection = () => {
   const [questionsData, setQuestionsData] = useState([]);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [name, setName] = useState("");
@@ -13,8 +13,6 @@ const TriviaCreator = () => {
   const [isReadyToShare, setIsReadyToShare] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [selectedTrivia, setSelectedTrivia] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState("");
-
 
   const addQuestion = (newQuestion) => {
     setQuestionNumber((prevQuestionNumber) => prevQuestionNumber + 1);
@@ -27,16 +25,17 @@ const TriviaCreator = () => {
       return false;
     }
 
-    const deck = {
-      name: name,
-      questions: questionsData,
-      canBeExported: true,
-      ...(author && { author: author }),
-      ...(description && { description: description })
-    };
-
     try {
       const existingDecks = JSON.parse(localStorage.getItem("trivia_decks")) || [];
+
+      const deck = {
+        index: existingDecks.length,
+        name: name,
+        questions: questionsData,
+        canBeExported: true,
+        ...(author && { author: author }),
+        ...(description && { description: description })
+      };
       
       existingDecks.push(deck);
       
@@ -46,7 +45,6 @@ const TriviaCreator = () => {
       setIsReadyToShare(true);
       setSelectedTrivia(deck);
       setIsSaved(true);
-      setSelectedIndex(existingDecks.length - 1);
     } catch (error) {
       console.error("Error saving deck:", error);
       alert("Error saving deck. Please try again.");
@@ -63,7 +61,7 @@ const TriviaCreator = () => {
 
   const handleShare = () => {
     setIsReadyToShare(false);
-    handleShareGoogle(selectedTrivia, selectedIndex);
+    handleShareGoogle(selectedTrivia, selectedTrivia.index);
   };
 
   return (
@@ -104,4 +102,4 @@ const TriviaCreator = () => {
   );
 };
 
-export default TriviaCreator;
+export default CreatorSection;

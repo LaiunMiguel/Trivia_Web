@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import '../assets/css/preguntas.css';
+import React, { useState, useEffect} from 'react';
+import '../assets/css/preguntaConOpciones.css';
 
-const PreguntaConOpciones = ({ questionData, onAnswer }) => {
+const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [shuffledOptions, setShuffledOptions] = useState([]);
 
   useEffect(() => {
-    // Shuffle options when questionData changes
     const options = [...questionData.o];
     for (let i = options.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -16,13 +15,18 @@ const PreguntaConOpciones = ({ questionData, onAnswer }) => {
     setSelectedOption(null);
   }, [questionData]);
 
-  const handleOptionClick = useCallback((option) => {
+  const handleOptionClick = (option) => {
     setSelectedOption(option);
-    onAnswer();
-  }, [onAnswer]);
+    if (option === questionData.r) {
+      onAnswerCorrect(); 
+    }
+    else{
+      onAnswerIncorrect();
+    }
+  }
 
   return (
-    <div className='preguntaTarjeta'>
+    <div className='preguntaTarjetaOpciones'>
       <h2>{questionData.q}</h2>
       <div className='PreguntaOpciones'>
         {shuffledOptions.map((option, index) => (

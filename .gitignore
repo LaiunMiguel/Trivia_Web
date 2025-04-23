@@ -11,6 +11,9 @@
 # production
 /build
 
+# Ignore Devtools.jsx file
+/src/utils/Devtools.jsx
+
 # misc
 .DS_Store
 .env.local
