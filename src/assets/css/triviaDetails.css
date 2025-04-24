@@ -1,27 +1,64 @@
 .trivia-details {
-  background-color: rgba(67, 97, 238, 0.08);
+  background-color: rgba(8, 16, 49, 0.95);  /* Azul oscuro profundo */
   border-radius: var(--border-radius);
-  padding: 1.5rem;
-  margin-top: 1rem;
-  border-left: 4px solid var(--primary-color);
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
+  border: solid 2px;
+  border-left: 8px solid var(--primary-color);
+  border-color: var(--primary-color);
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), url('/public/cardBack.png');
+  background-size: expand;
+  background-position: center;
+  background-repeat: no-repeat;
+
 }
 
-.trivia-details p {
+.details {
+  height: 35vh;
+  width: 100%;
+  transition: box-shadow 0.3s ease;
+}
+
+.details h3 {
+  margin-top: 0;
+  font-size: 1.6rem;
+  color: #e9ecef;  /* Gris muy claro para el título */
+  font-weight: 1000;
+}
+
+.details p {
+  font-weight: 700;
   margin: 0.5rem 0;
   font-size: 1.1rem;
   flex: 1;
+  color: #ced4da;  /* Gris claro para el texto */
 }
 
-.buttons {
-  margin-top: auto;
+.details p strong {
+  color: #ffffff;  /* Blanco para el texto en negrita */
+}
+
+.detailsBasicInfo{
   display: flex;
-  gap: 1rem;
+  flex-direction: row;
 }
 
-.buttons button:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
+.detailsDescripcion {
+  max-height: 10vh;
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) #f1f1f100;
+}
+
+
+.triviaDetailsButtons{
+  display: flex;
+  justify-content: space-between;
+}
+
+.triviaDetailsButtons button:Last-child:hover {
+  margin-right: 0;
+  background-color: red !important;
 }

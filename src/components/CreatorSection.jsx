@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import PreguntaCreador from "./PreguntaCreador.jsx";
-import { handleShareGoogle } from "../utils/triviaUtils.js";
+import TriviaService from "../service/TriviaService.js";  
 import "../assets/css/triviaCreator.css";
 
 const CreatorSection = () => {
@@ -19,50 +20,46 @@ const CreatorSection = () => {
     setQuestionsData((prevQuestions) => [...prevQuestions, newQuestion]);
   };
 
-  const handleSave = () => {
-    if (name.trim() === "") {
-      alert("El nombre de la trivia es obligatorio");
-      return false;
-    }
-
-    try {
-      const existingDecks = JSON.parse(localStorage.getItem("trivia_decks")) || [];
-
-      const deck = {
-        index: existingDecks.length,
-        name: name,
-        questions: questionsData,
-        canBeExported: true,
-        ...(author && { author: author }),
-        ...(description && { description: description })
-      };
-      
-      existingDecks.push(deck);
-      
-      localStorage.setItem("trivia_decks", JSON.stringify(existingDecks));
-
-      alert("Deck saved successfully!");
-      setIsReadyToShare(true);
-      setSelectedTrivia(deck);
-      setIsSaved(true);
-    } catch (error) {
-      console.error("Error saving deck:", error);
-      alert("Error saving deck. Please try again.");
-    }
-  };
+  const triviaService = new TriviaService();
 
   const handleFinishQuestions = () => {
     if (questionsData.length === 0) {
-      alert("No se puede guardar un deck sin preguntas");
+      toast.error("No se puede guardar una trivia sin preguntas");
       return;
     }
     setIsReadyToSave(true);
   };
 
+  const handleSave = () =>{
+    if (name.trim() === "") {
+      toast.error("El nombre de la trivia no puede estar vacío");
+      return false;
+    }
+    const trivia = {
+      id: null,
+      name: name,
+      questions: questionsData,
+      canBeExported: true,
+      ...(author && { author: author }),
+      ...(description && { description: description })
+    };
+
+    const triviaSaved = triviaService.saveTrivia(trivia);
+    setSelectedTrivia(triviaSaved);
+    setIsSaved(true);
+    setIsReadyToShare(true);
+    
+
+  }
+
   const handleShare = () => {
     setIsReadyToShare(false);
-    handleShareGoogle(selectedTrivia, selectedTrivia.index);
+    triviaService.exportTrivia(selectedTrivia)
+    toast.success("Trivia exportada correctamente");
+
   };
+
+
 
   return (
     <div className="DeckCreator">

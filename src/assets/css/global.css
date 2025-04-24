@@ -1,9 +1,9 @@
 :root {
 
     /* Primary Theme */
-    --primary-color: #4361ee;         /* A vibrant blue for main actions */
+    --primary-color: #020409;         /* A vibrant blue for main actions */
     --primary-hover: #364fc7;         /* A slightly darker blue for hover states */
-    --background-color: #f8f9fa;      /* Very light gray for backgrounds */
+    --background-color: #08223d;      /* Very light gray for backgrounds */
     --text-color: #222;               /* Almost black for main text */
     --border-radius: 12px;
     --shadow: 0 4px 12px rgba(67, 97, 238, 0.08); /* Subtle blue shadow */
@@ -16,7 +16,7 @@
     --navbar-color: #ffffff;          /* White navbar for clarity */
 
     /* Footer */
-    --footer-color: #22223b;          /* Deep blue-gray for footer */
+    --footer-color: #000000;          /* Deep blue-gray for footer */
     --footer-text-color: #f8f9fa;     /* Light text for footer */
 
     /* Trivia Creator */
@@ -33,7 +33,7 @@
     --trivia-background-color-front: #ffffff;
     --trivia-background-color-back: #4361ee;
     --trivia-background-color-option: #4361ee;
-    --trivia-background-color-option-hover: #3b55d9;
+    --trivia-background-color-option-hover: #142658;
     --trivia-background-color-correct: #2ecc71;
     --trivia-background-color-incorrect: #e74c3c;
 }

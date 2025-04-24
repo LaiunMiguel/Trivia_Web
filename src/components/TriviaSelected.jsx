@@ -3,7 +3,7 @@ import PreguntaHandler from "./PreguntaHandler.jsx";
 import Timer from "./Timer.jsx";
 import "../assets/css/TriviaSelected.css";
 
-const TriviaSelected = ({ questionsData, timeChosen }) => {
+const TriviaSelected = ({ questionsData, timeChosen,handleFinish }) => {
   const [cantPreguntas, setCantPreguntas] = useState(0);
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [preguntas, setPreguntas] = useState([]);
@@ -32,6 +32,7 @@ const TriviaSelected = ({ questionsData, timeChosen }) => {
     }
     else {
       setIsFinish(true);
+      handleFinish(puntaje);
     }
   };
 

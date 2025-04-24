@@ -1,5 +1,6 @@
 import "../assets/css/preguntaCreador.css";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const PreguntaCreador = ({ onAddQuestion }) => {
   const [questionText, setQuestionText] = useState("");
@@ -29,7 +30,11 @@ const PreguntaCreador = ({ onAddQuestion }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!questionText || !correctAnswer) {
-      alert("Por favor, completa todos los campos.");
+      if (!questionText) {
+        toast.warning("Por favor, completa el campo de pregunta.");
+        return;
+      }
+      toast.warning("Por favor, completa el campo de respuesta correcta.");
       return;
     }
 

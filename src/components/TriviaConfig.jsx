@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
 import TriviaSelected from "./TriviaSelected.jsx";
 
-const TriviaConfig = ({ triviaSelected}) => {
+const TriviaConfig = ({ triviaSelected, handleFinish}) => {
 
   return (
     <div className="DeckConfigurator">
-        <TriviaSelected questionsData={triviaSelected} timeChosen={60} />
+        <TriviaSelected questionsData={triviaSelected} timeChosen={60} handleFinish={handleFinish} />
     </div>
   );
 };

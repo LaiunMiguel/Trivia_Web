@@ -21,7 +21,7 @@
 }
 
 .footer-title {
-  color: var(--primary-color);
+  color: var(--footer-text-color);
   font-size: 1.3rem;
   margin: 0 0 0.8rem 0;
   font-weight: bold;
@@ -32,7 +32,7 @@
 
 .footer-section p {
   margin: 0.5rem 0;
-  color: var(--text-color);
+  color: var(--footer-text-color);
   font-size: 0.95rem;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .social-links a {
-  color: var(--primary-color);
+  color: var(--footer-text-color);
   text-decoration: none;
   font-size: 0.95rem;
   transition: var(--transition);

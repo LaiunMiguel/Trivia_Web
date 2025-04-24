@@ -1,7 +1,7 @@
 .PlaySection {
-  padding: 2rem;
   margin: 0 auto;
   position: relative;
+  padding: 1rem;
 }
 
 .PlayButtons {
@@ -11,17 +11,16 @@
 
 }
 
-/* Grid de tarjetas */
 .trivia-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin: 4rem 0;
 }
 
 @media (max-width: 1200px) {
   .trivia-list {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -45,24 +44,10 @@
 }
 
 .pagination span {
-  font-size: 1.1rem;
-  color: #333;
+  font-size: 1.3rem;
+  color: #ffffff;
 }
 
 .pagination button  {
   margin: 0 0.5rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .PlaySection {
-    padding: 1rem;
-  }
-
-  .trivia-list {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-    margin: 3rem 0;
-  }
-
 }
