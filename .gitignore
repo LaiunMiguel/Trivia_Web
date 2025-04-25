@@ -13,6 +13,7 @@
 
 # Ignore Devtools.jsx file
 /src/utils/Devtools.jsx
+/src/utils/LocalStorageInfo.jsx
 
 # misc
 .DS_Store

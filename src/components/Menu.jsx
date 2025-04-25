@@ -9,7 +9,7 @@ export const MODES = {
 };
 
 const Menu = () => {
-  const [mode, setMode] = useState(MODES.MENU); // New state for mode selection
+  const [mode, setMode] = useState(MODES.MENU);
 
   const handleModeChange = (newMode) => {
     setMode(newMode);
@@ -25,7 +25,7 @@ const Menu = () => {
         <div className="menu">
           <div className="mode-selector">
             <button onClick={() => handleModeChange(MODES.CREATOR)}>Crear una Trivia</button>
-            <button onClick={() => handleModeChange(MODES.PLAY)}>Juegar Trivia</button>
+            <button onClick={() => handleModeChange(MODES.PLAY)}>Jugar Trivia</button>
           </div>
         </div>
       ) : (

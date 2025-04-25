@@ -6,7 +6,6 @@ import './assets/css/app.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const App = () => {
 
   return (
@@ -16,7 +15,7 @@ const App = () => {
       <Menu/>
       <ToastContainer />
     </div>
-      <Footer />
+    <Footer />
     </>
 
   );

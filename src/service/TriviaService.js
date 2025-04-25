@@ -65,7 +65,7 @@ class TriviaService {
     }
 
     saveTrivia(trivia){
-        storageService.saveTrivia(trivia);
+        return storageService.saveTrivia(trivia);
     }
 
 

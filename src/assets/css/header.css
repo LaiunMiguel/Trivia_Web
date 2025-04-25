@@ -1,13 +1,13 @@
 .header {
   width: 100%;
-  background-color:  var(--navbar-color);
+  background-color: var(--navbar-color);
   padding: 1rem 2rem;
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   margin-bottom: 2rem;
   display: flex;
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
+  justify-content: center;
+  align-items: center;
 }
 
 .header-content {
@@ -17,7 +17,7 @@
 }
 
 .logo-image {
-  width: 50px; /* Set a fixed width for the logo */
+  width: 50px;
   height: auto;
 }
 

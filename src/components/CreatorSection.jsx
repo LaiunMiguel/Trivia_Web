@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import { toast } from "react-toastify";
 import PreguntaCreador from "./PreguntaCreador.jsx";
+import TriviaForm from "./TriviaForm.jsx"
 import TriviaService from "../service/TriviaService.js";  
 import "../assets/css/triviaCreator.css";
+
+const triviaService = new TriviaService();
 
 const CreatorSection = () => {
   const [questionsData, setQuestionsData] = useState([]);
   const [questionNumber, setQuestionNumber] = useState(1);
-  const [name, setName] = useState("");
-  const [author, setAuthor] = useState(""); 
-  const [description, setDescription] = useState("");
   const [isReadyToSave, setIsReadyToSave] = useState(false);
-  const [isReadyToShare, setIsReadyToShare] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
   const [selectedTrivia, setSelectedTrivia] = useState(null);
 
   const addQuestion = (newQuestion) => {
@@ -20,43 +18,42 @@ const CreatorSection = () => {
     setQuestionsData((prevQuestions) => [...prevQuestions, newQuestion]);
   };
 
-  const triviaService = new TriviaService();
+  const handleSave = (formData) => {
+    try {
+      const trivia = {
+        id: null,
+        name: formData.name.trim(),
+        questions: questionsData,
+        canBeExported: true,
+        ...(formData.author && { author: formData.author }),
+        ...(formData.description && {description:formData.description})
+      };
+      const triviaSaved = triviaService.saveTrivia(trivia);
+      setSelectedTrivia(triviaSaved);
+      toast.success("Trivia guardada exitosamente");
+    } 
+    catch (error) {
+      toast.error("Error al guardar la trivia");
+      console.error(error);
+    }
+  }
 
   const handleFinishQuestions = () => {
     if (questionsData.length === 0) {
-      toast.error("No se puede guardar una trivia sin preguntas");
+      toast.error("La trivia debe tener al menos una pregunta");
       return;
     }
     setIsReadyToSave(true);
   };
 
-  const handleSave = () =>{
-    if (name.trim() === "") {
-      toast.error("El nombre de la trivia no puede estar vacío");
-      return false;
+  const handleShare = async () => {
+    console.log(selectedTrivia)
+    try {
+      await triviaService.exportTrivia(selectedTrivia);
+      toast.success("Trivia exportada correctamente");
+    } catch (error) {
+      toast.error("Error al exportar la trivia intentalo mas tarde");
     }
-    const trivia = {
-      id: null,
-      name: name,
-      questions: questionsData,
-      canBeExported: true,
-      ...(author && { author: author }),
-      ...(description && { description: description })
-    };
-
-    const triviaSaved = triviaService.saveTrivia(trivia);
-    setSelectedTrivia(triviaSaved);
-    setIsSaved(true);
-    setIsReadyToShare(true);
-    
-
-  }
-
-  const handleShare = () => {
-    setIsReadyToShare(false);
-    triviaService.exportTrivia(selectedTrivia)
-    toast.success("Trivia exportada correctamente");
-
   };
 
 
@@ -70,30 +67,7 @@ const CreatorSection = () => {
           <button onClick={handleFinishQuestions}>Terminar Trivia</button>
         </div>
       ) : (
-        <div className="config-menu">
-          <input
-            type="text"
-            placeholder="Eligir nombre para tu trivia"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Autor (Opcional)"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Descripcion (Opcional)"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <button onClick={handleSave}  disabled={isSaved}>Guardar Trivia</button>
-          <button onClick={handleShare} disabled={!isReadyToShare}>
-            Subir Trivia
-          </button>
-        </div>
+        <TriviaForm handleSave={handleSave} handleShare={handleShare}/>
       )}
     </div>
   );
