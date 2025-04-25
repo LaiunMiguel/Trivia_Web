@@ -53,6 +53,23 @@ const PlaySection = ({ handleMenuButton }) => {
     setTriviasData(noResueltasTrivias);
   }
 
+
+  const handleSearchTrivia = async (searchTerm) => {
+    setIsLoading((prev => !prev));
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500)); 
+      const filteredTrivias = triviaService.searchTrivias(searchTerm);
+      if (filteredTrivias.length === 0) {
+        toast.error("No se encontraron trivias con ese parametro");
+      }
+      else {
+        setTriviasData(filteredTrivias);
+      }
+    } finally {
+      setIsLoading((prev => !prev));
+    }
+  }
+
   
   const handleExport = async (triviaToShare) => {
     await triviaService.exportTrivia(triviaToShare);
@@ -72,7 +89,7 @@ const PlaySection = ({ handleMenuButton }) => {
     };
     
     const handleImportAllTrivias = async () => {
-      setIsLoading(true);
+      setIsLoading(prev => !prev);
       try {
         await triviaService.importAllTrivias();
         handleTodasMisTrivias();
@@ -80,7 +97,7 @@ const PlaySection = ({ handleMenuButton }) => {
       } catch (error) {
         toast.error(error.message);
       } finally {
-        setIsLoading(false);
+        setIsLoading(prev => !prev);
       }
     };
   
@@ -126,6 +143,7 @@ const PlaySection = ({ handleMenuButton }) => {
             handleTodasMisTrivias={handleTodasMisTrivias}
             handleImportNewTrivias={handleImportNewTrivias}
             handleImportAllTrivias={handleImportAllTrivias}
+            handleSearchTrivia={handleSearchTrivia}
           />
           <div className="trivia-list">
           

@@ -28,28 +28,10 @@ const Pregunta = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) => {
           <div className="response">
             <h2>{questionData.r}</h2>
             <div className="honestMan">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onAnswerCorrect();
-                  setIsAnswered(true);
-                }}
-                disabled={isAnswered}
-                data-icon="✔"
-                title="Correcto"
-              >
+              <button onClick={(e) => {e.stopPropagation();onAnswerCorrect();setIsAnswered(true);}} disabled={isAnswered} data-icon="✔">
                 Acerté
               </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onAnswerIncorrect();
-                  setIsAnswered(true);
-                }}
-                disabled={isAnswered}
-                data-icon="✖"
-                title="Incorrecto"
-              >
+              <button onClick={(e) => {e.stopPropagation();onAnswerIncorrect();setIsAnswered(true);}}disabled={isAnswered} data-icon="✖">
                 Fallé
               </button>
             </div>

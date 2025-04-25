@@ -1,39 +1,84 @@
 .PlayMenu {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-content: center;
-  gap: 0.75rem;
+  grid-template-columns: repeat(4,1fr);
+  gap: 1rem;
+  padding: 2rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.menu-section {
+  background-color: var(--trivia-background-color-front);
+  position: relative;
+  overflow: visible;
+  transition: var(--transition);
+}
+
+.menu-section h3 {
+  color: var(--text-color);
   padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  margin-bottom: 2rem;
-}
-
-.PlayMenu button {
-  background-color: #4b5eff;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 9999px;
-  font-size: 0.95rem;
-  font-weight: 500;
+  margin: 0;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  color: rgb(0, 0, 0);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.PlayMenu button:hover {
-  background-color: #3649d9;
-  transform: translateY(-2px);
+.menu-section h3::after {
+  content: '▼';
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
 }
 
-.PlayMenu button:active {
-  transform: scale(0.98);
+.menu-section.open h3::after {
+  transform: rotate(180deg);
 }
 
+.menu-section-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--background-color);
+  box-shadow: var(--shadow);
+  border: solid 2px !important;
+  border-color: white !important;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 10;
+  transition: var(--transition);
+}
+
+.menu-section-content button {
+  background-color: transparent !important;
+  border: solid 2px !important;
+  text-align: left;
+}
+
+.menu-section-content button:hover {
+  color: #fff;
+  transform: translateX(5px);
+}
+
+
+.menu-section-content button:focus {
+  background-color: white !important;
+  color: #000000;
+  transform: translateX(4px);
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
 
 @media (max-width: 768px) {
   .PlayMenu {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 90vw;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }
+
+
+

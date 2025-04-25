@@ -4,6 +4,8 @@ import PreguntaCreador from "./PreguntaCreador.jsx";
 import TriviaForm from "./TriviaForm.jsx"
 import TriviaService from "../service/TriviaService.js";  
 import "../assets/css/triviaCreator.css";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const triviaService = new TriviaService();
 
@@ -43,7 +45,7 @@ const CreatorSection = () => {
       toast.error("La trivia debe tener al menos una pregunta");
       return;
     }
-    setIsReadyToSave(true);
+    confirmReady(true);
   };
 
   const handleShare = async () => {
@@ -56,6 +58,23 @@ const CreatorSection = () => {
     }
   };
 
+
+  const confirmReady = () => {
+    confirmAlert({
+      title: 'Seguro que estas listo?',
+      message: 'La pregunta actual no se guardara, ¿deseas continuar?',
+      buttons: [
+        {
+          label: 'Sí',
+          onClick: () => setIsReadyToSave(true)
+        },
+        {
+          label: 'No',
+          onClick: () => {}
+        }
+      ]
+    });
+};
 
 
   return (

@@ -33,19 +33,20 @@ const TriviaForm = ({handleSave,handleShare}) => {
     handleShare(true)
   }
 
-
   return (
     <div className="config-menu">
     <input
       type="text"
       placeholder="Eligir nombre para tu trivia"
       value={name}
+      maxLength={35}
       onChange={(e) => setName(e.target.value)}
     />
     <input
       type="text"
       placeholder="Autor (Opcional)"
       value={author}
+      maxLength={15}
       onChange={(e) => setAuthor(e.target.value)}
     />
     <input

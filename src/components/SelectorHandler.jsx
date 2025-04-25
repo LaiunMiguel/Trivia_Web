@@ -1,6 +1,5 @@
 import CreatorSection from './CreatorSection.jsx';
 import PlaySection from './PlaySection.jsx';
-import '../assets/css/modeSelected.css';
 import { MODES } from './Menu.jsx';
 
 const SelectorHandler = ({ mode, handleMenuButton }) => {

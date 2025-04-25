@@ -52,6 +52,20 @@ class TriviaService {
         return unResolvedTrivias;
     }
 
+    searchTrivias(searchTerm) {
+        console.log(searchTerm)
+        const trivias = storageService.loadAllTrivias();
+        const searchTermLower = searchTerm.toLowerCase();
+        const searchResults = trivias.filter((trivia) => {
+            return (
+                trivia.name.toLowerCase().includes(searchTermLower) ||
+                (trivia.author && trivia.author.toLowerCase().includes(searchTermLower)))
+        });
+
+        return searchResults;
+    }
+    
+
     deleteTrivia(trivia){
         storageService.removeFromTrivias(trivia);
     }

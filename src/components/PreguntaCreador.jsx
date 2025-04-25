@@ -59,6 +59,7 @@ const PreguntaCreador = ({ onAddQuestion }) => {
           <input 
             type="text"
             value={questionText}
+            maxLength={100}
             onChange={handleQuestionChange}
             placeholder="Escribe la pregunta"
           />
@@ -84,6 +85,7 @@ const PreguntaCreador = ({ onAddQuestion }) => {
                     key={index}
                     type="text"
                     value={option}
+                    maxLength={45}
                     onChange={(e) =>
                       handleResponseChange(index, e.target.value)
                     }
@@ -110,6 +112,7 @@ const PreguntaCreador = ({ onAddQuestion }) => {
               value={correctAnswer}
               onChange={(e) => handleResponseChange(0, e.target.value)}
               placeholder="Respuesta correcta"
+              maxLength={45}
             />
           </div>
         )}

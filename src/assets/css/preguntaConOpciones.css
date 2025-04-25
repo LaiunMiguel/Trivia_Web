@@ -1,6 +1,4 @@
 .preguntaTarjetaOpciones {
-  min-height: fit-content;
-  min-width: fit-content;
   width: var(--trivia-card-width);
   height: var(--trivia-card-height);
   display: flex;
@@ -23,20 +21,16 @@
 }
 
 .preguntaOpcion {
-  background-color: var(--trivia-background-color-option) !important;
-  padding: clamp(0.8rem, 2vw, 1.2rem);
-  color: white;
-  border-radius: var(--trivia-border-radius);
-  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   transition: all 0.3s ease;
-  cursor: pointer;
-  border: none;
   text-align: center;
   min-height: clamp(60px, 10vh, 80px);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 6px var(--trivia-shadow-color);
+  word-break: break-word;
+
 }
 
 .preguntaOpcion:hover:not(:disabled) {
@@ -79,13 +73,14 @@
   75% { transform: translateX(5px); }
 }
 
-@media (max-width: 1024px) {
-  .PreguntaOpciones {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 
 @media (max-width: 768px) {
+
+  .preguntaTarjetaOpciones {
+    height: 100%;
+    padding: 1rem;
+  }
+
   .PreguntaOpciones {
     grid-template-columns: 1fr;
     gap: 0.8rem;

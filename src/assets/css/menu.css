@@ -10,27 +10,12 @@
   height: fit-content;
 }
 
-.menu {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  text-align: center;
-}
-
-.Menu h1 {
-  color: var(--primary-color);
-  margin-bottom: 2rem;
-  text-align: center;
-  font-size: 2rem;
-}
-
 .mode-selector {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 80vh;
+  width: 85vw;
   gap: 1.5rem;
-  width: 100%;
-  max-width: 400px;
 }
 
 .mode-selector button {
@@ -45,42 +30,21 @@
   font-weight: bold;
 }
 
-.mode-selector button:hover {
-  background-color: var(--primary-hover);
+/* Estilo para el botón de crear trivias (primer hijo) */
+.mode-selector button:first-child:hover {
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
   transform: translateY(-2px);
   box-shadow: var(--shadow);
 }
 
-/* Estilos responsivos */
-@media (max-width: 768px) {
-  .menuPrincipal {
-    padding: 1rem;
-    width: 95%;
-  }
-  
-  .menuPrincipal h1 {
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .mode-selector button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1.1rem;
-  }
+/* Estilo para el botón de jugar trivias (segundo hijo) */
+.mode-selector button:last-child:hover {
+  background: linear-gradient(135deg, #2196F3, #1565C0);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
-@media (min-width: 768px) {
-  .mode-selector {
-    flex-direction: row;
-    justify-content: center;
-  }
-}
 
-/* Mejoras de accesibilidad */
-.mode-selector button:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
 
 /* Animación para transición entre estados */
 @keyframes fadeIn {
@@ -90,4 +54,10 @@
 
 .Menu > * {
   animation: fadeIn 0.5s ease-out;
+}
+
+.ModeSelected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

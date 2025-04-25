@@ -1,6 +1,4 @@
 .preguntaTarjeta {
-  min-height: fit-content;
-  min-width: fit-content;
   width: var(--trivia-card-width);
   height:  var(--trivia-card-height);
   perspective: 1000px;
@@ -102,8 +100,16 @@ button:disabled {
     box-shadow: none;
 }
 
+button:disabled:hover {
+  background-color: var(--disabled-color) !important;
+  color: var(--disabled-text);
+  transform: none;
+  box-shadow: none;
+}
+
 .honestMan button::before {
   content: attr(data-icon);
   font-size: 1.2rem;
 
 }
+

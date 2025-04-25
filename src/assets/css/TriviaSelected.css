@@ -31,14 +31,6 @@
   grid-column: span 1;
 }
 
-.PreguntaActual {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Ensure children fit within */
-  height: auto; /* Adjust height */
-}
 .final-score {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
@@ -61,7 +53,7 @@
 @media (max-width: 768px) {
   .MazoPregunta {
     padding: 1rem;
-    width: 95%;
+    width: 100%;
   }
   
   .MazoPregunta button {
@@ -69,20 +61,29 @@
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
   }
-}
 
-/* Mejoras de accesibilidad */
-.MazoPregunta button:focus {
-  outline: 2px solid white;
-  outline-offset: 2px;
+  .score-info {
+    padding: 1rem;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .score-info h2 {
+    font-size: 1rem;
+  }
+
+  .final-score {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .final-score h2 {
+    font-size: 1.2rem;
+  }
 }
 
 /* Animación para transición entre preguntas */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-.MazoPregunta > * {
-  animation: fadeIn 0.5s ease-out;
 }

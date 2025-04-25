@@ -4,7 +4,7 @@ const TriviaConfig = ({ triviaSelected, handleFinish}) => {
 
   return (
     <div className="DeckConfigurator">
-        <TriviaSelected questionsData={triviaSelected} timeChosen={60} handleFinish={handleFinish} />
+        <TriviaSelected questionsData={triviaSelected} timeChosen={6000} handleFinish={handleFinish} />
     </div>
   );
 };

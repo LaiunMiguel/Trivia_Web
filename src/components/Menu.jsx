@@ -22,12 +22,10 @@ const Menu = () => {
   return (
     <div className="Menu">
       {mode === MODES.MENU ? (
-        <div className="menu">
           <div className="mode-selector">
-            <button onClick={() => handleModeChange(MODES.CREATOR)}>Crear una Trivia</button>
-            <button onClick={() => handleModeChange(MODES.PLAY)}>Jugar Trivia</button>
+            <button onClick={() => handleModeChange(MODES.CREATOR)}>Crea tu Trivia</button>
+            <button onClick={() => handleModeChange(MODES.PLAY)}>Juega una Trivia</button>
           </div>
-        </div>
       ) : (
         <SelectorHandler mode={mode} handleMenuButton={handleMenuButton} />
       )}

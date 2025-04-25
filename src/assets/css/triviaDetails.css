@@ -15,7 +15,7 @@
 }
 
 .details {
-  height: 35vh;
+  height: 40vh;
   width: 100%;
   transition: box-shadow 0.3s ease;
 }
@@ -45,7 +45,7 @@
 }
 
 .detailsDescripcion {
-  max-height: 10vh;
+  height: 10vh;
   overflow-y: auto;
   padding-right: 8px;
   scrollbar-width: thin;
@@ -61,4 +61,21 @@
 .triviaDetailsButtons button:Last-child:hover {
   margin-right: 0;
   background-color: red !important;
+}
+
+@media (max-width: 768px){
+  
+  .trivia-details {
+    width: 70vw;
+ }
+
+ .detailsBasicInfo{
+  display: flex;
+  flex-direction: column;
+}
+
+ .details{
+  height: fit-content;
+ }
+
 }

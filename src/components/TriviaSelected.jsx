@@ -68,11 +68,9 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish }) => {
             <h2>Puntaje: {puntaje}</h2>
             <h2>Tiempo restante: <Timer key={preguntaActual} timeLimit={timeChosen} onTimeUp={handleTimeUp} isActive={isTimerActive} /></h2>
           </div>
-          <div className="PreguntaActual">
             {preguntas.length > 0 && (
               <PreguntaHandler questionData={preguntas[preguntaActual]} onAnswerCorrect={handleCorrectAnswer} onAnswerIncorrect={handleIncorrectAnswer} />
             )}
-          </div>
           <button onClick={handleSiguientePregunta} disabled={preguntaActual >= preguntas.length || !isAnswered}>Siguiente Pregunta</button>
         </>
       ) : (
