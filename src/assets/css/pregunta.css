@@ -93,7 +93,7 @@
 }
 
 button:disabled {
-    background-color: var(--disabled-color);
+    background-color: var(--disabled-color)!important;
     color: var(--disabled-text);
     cursor: not-allowed;
     transform: none;
@@ -101,7 +101,6 @@ button:disabled {
 }
 
 button:disabled:hover {
-  background-color: var(--disabled-color) !important;
   color: var(--disabled-text);
   transform: none;
   box-shadow: none;

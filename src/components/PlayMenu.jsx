@@ -7,6 +7,7 @@ import SearchTrivia from "./SearchTrivia";
 const PlayMenu = ({
   handleMenuButton,
   handleRandomTrivia,
+  handleRandomTriviaTotal,
   handleTodasMisTrivias,
   handleLocalTrivias,
   handleTriviasResueltas,
@@ -14,6 +15,7 @@ const PlayMenu = ({
   handleImportNewTrivias,
   handleImportAllTrivias,
   handleSearchTrivia,
+  handleUnfinishTrivias
 }) => {
 
   const [sectionsOpen, setSectionsOpen] = useState({
@@ -74,7 +76,8 @@ const PlayMenu = ({
         <h3 onClick={() => toggleSection('Jugar')}>Jugar</h3>
         {sectionsOpen.Jugar && (
             <div className="menu-section-content">
-                <button onClick={handleRandomTrivia}>Jugar Trivia Aleatoria</button>
+                <button onClick={handleRandomTrivia}>Jugar Trivia Aleatoria de las filtradas</button>
+                <button onClick={handleRandomTriviaTotal}>Jugar Trivia Aleatoria</button>
               </div>
         )}
       </section>

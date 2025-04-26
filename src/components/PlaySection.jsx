@@ -27,6 +27,11 @@ const PlaySection = ({ handleMenuButton }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [triviasData])
+
+
   // --- Handlers ---
   const handleTriviaSelection = (trivia) => {
     setTriviaSelected(trivia);
@@ -62,9 +67,7 @@ const PlaySection = ({ handleMenuButton }) => {
       if (filteredTrivias.length === 0) {
         toast.error("No se encontraron trivias con ese parametro");
       }
-      else {
-        setTriviasData(filteredTrivias);
-      }
+      setTriviasData(filteredTrivias);
     } finally {
       setIsLoading((prev => !prev));
     }
@@ -108,8 +111,24 @@ const PlaySection = ({ handleMenuButton }) => {
   }
   
   const handleRandomTrivia = () => {
+    if (triviasData.length === 0) {
+      toast.error("No hay trivias para elegir :(");
+      return;
+    }
     const randomIndex = Math.floor(Math.random() * triviasData.length);
     const randomTrivia = triviasData[randomIndex];
+    setTriviaSelected(randomTrivia);
+    setIsConfigured(true);
+  };
+
+  const handleRandomTriviaTotal = () => {
+    const todasTrivias = triviaService.loadAllTrivias();
+    if (todasTrivias.length === 0) {
+      toast.error("No tienes trivias importa alguna :)");
+      return;
+    }
+    const randomIndex = Math.floor(Math.random() * todasTrivias.length);
+    const randomTrivia = todasTrivias[randomIndex];
     setTriviaSelected(randomTrivia);
     setIsConfigured(true);
   };
@@ -118,7 +137,7 @@ const PlaySection = ({ handleMenuButton }) => {
     triviaService.markAsResolved(triviaSelected,score);
     handleTodasMisTrivias();
   }
-  
+
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
   
   // --- Pagination ---
@@ -137,6 +156,7 @@ const PlaySection = ({ handleMenuButton }) => {
           <PlayMenu
             handleMenuButton={handleMenuButton}
             handleRandomTrivia={handleRandomTrivia}
+            handleRandomTriviaTotal={handleRandomTriviaTotal}
             handleLocalTrivias={handleLocalTrivias}
             handleTriviasResueltas={handleTriviasResueltas}
             handleTriviasNoResueltas={handleTriviasNoResueltas}
@@ -145,18 +165,24 @@ const PlaySection = ({ handleMenuButton }) => {
             handleImportAllTrivias={handleImportAllTrivias}
             handleSearchTrivia={handleSearchTrivia}
           />
-          <div className="trivia-list">
-          
-          {pageTrivias.map((trivia,index) => (
-              <TriviaDetails
-                key={index}
-                triviaData={trivia}
-                handleClick={handleTriviaSelection}
-                handleShare={handleExport}
-                handleDelete={handleDelete}
+        
+          {pageTrivias.length === 0 ? (
+            <div className="empty-list">
+              <h2>No hay trivias que cumplan esas caracteriticas</h2>
+            </div>
+          ) : (
+            <div className="trivia-list">
+              {pageTrivias.map((trivia,index) => (
+                <TriviaDetails
+                  key={index}
+                  triviaData={trivia}
+                  handleClick={handleTriviaSelection}
+                  handleShare={handleExport}
+                  handleDelete={handleDelete}
                 />
               ))}
-          </div>
+            </div>
+            )}
           <div className="pagination">
             <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>←</button>
             <span>Página {currentPage}</span>
@@ -164,7 +190,7 @@ const PlaySection = ({ handleMenuButton }) => {
           </div>
         </>
       ) : (
-        <TriviaConfig triviaSelected={triviaSelected} handleFinish={handleFinish} />
+        <TriviaConfig triviaSelected={triviaSelected} handleFinish={handleFinish}/>
       )}
     </div>
   );

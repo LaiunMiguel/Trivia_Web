@@ -3,7 +3,7 @@ import PreguntaHandler from "./PreguntaHandler.jsx";
 import Timer from "./Timer.jsx";
 import "../assets/css/TriviaSelected.css";
 
-const TriviaSelected = ({ questionsData, timeChosen,handleFinish }) => {
+const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) => {
   const [cantPreguntas, setCantPreguntas] = useState(0);
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [preguntas, setPreguntas] = useState([]);
@@ -13,15 +13,18 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish }) => {
   const [isFinish, setIsFinish] = useState(false);
 
   useEffect(() => {
-    if (questionsData.questions) {
+    if (randomSort) {
       const shuffledQuestions = [...questionsData.questions].sort(
         () => Math.random() - 0.5
       );
       setPreguntas(shuffledQuestions);
-      setPreguntaActual(0);
-      setCantPreguntas(shuffledQuestions.length);
-      setIsTimerActive(true);
     }
+    else {
+      setPreguntas(questionsData.questions);
+    }
+      setPreguntaActual(0);
+      setCantPreguntas(questionsData.questions.length);
+      setIsTimerActive(true);
   }, [questionsData]);
 
   const handleSiguientePregunta = () => {
@@ -64,7 +67,7 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish }) => {
       {!isFinish ? (
         <>
           <div className="score-info">
-            <h2>Preguntas restantes: {cantPreguntas - preguntaActual}</h2>
+            <h2>Preguntas restantes: {cantPreguntas - preguntaActual -1}</h2>
             <h2>Puntaje: {puntaje}</h2>
             <h2>Tiempo restante: <Timer key={preguntaActual} timeLimit={timeChosen} onTimeUp={handleTimeUp} isActive={isTimerActive} /></h2>
           </div>

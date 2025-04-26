@@ -53,7 +53,6 @@ class TriviaService {
     }
 
     searchTrivias(searchTerm) {
-        console.log(searchTerm)
         const trivias = storageService.loadAllTrivias();
         const searchTermLower = searchTerm.toLowerCase();
         const searchResults = trivias.filter((trivia) => {
