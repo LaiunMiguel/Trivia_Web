@@ -18,6 +18,12 @@
   font-weight: 700;
 }
 
+.MazoPregunta h1 {
+  color: white;
+  text-align: center;
+}
+
+
 .creator-menu {
   display: flex;
   flex-direction: column;

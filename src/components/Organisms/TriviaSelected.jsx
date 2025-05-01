@@ -3,6 +3,8 @@ import PreguntaHandler from "./PreguntaHandler.jsx";
 import Timer from "../Atoms/Timer.jsx";
 import "../../assets/css/TriviaSelected.css";
 import { useNavigate } from 'react-router';
+import { toast } from "react-toastify";
+
 
 
 const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) => {
@@ -68,8 +70,26 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) =
     handleSiguientePregunta();
   };
 
+  const handleShare = () => {
+
+
+    if (questionsData.id.startsWith("local")) { // Cambiado a startsWith
+      return toast.error("No se puede compartir una trivia local");
+    }
+    const url = window.location.href; 
+    navigator.clipboard.writeText(url)
+      .then(() => {
+        toast.success('¡Enlace copiado al portapapeles!');
+      })
+      .catch(err => {
+        toast.error('Error al copiar el enlace: ');
+      });
+  };
+
+
   return (
     <div className="MazoPregunta">
+      <h1>Trivia: {questionsData.name}</h1>
       {!isFinish ? (
         <>
           <div className="score-info">
@@ -86,7 +106,10 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) =
         <div className="final-score">
           <h2>¡Has terminado!</h2>
           <h2>Respondiste correctamente {puntaje} de {cantPreguntas} preguntas</h2>
-          <button onClick={() => {navigate("/Play")}}>Volver al Menu</button>
+          <div className="final-score-buttons">
+            <button onClick={handleShare}> Copiar Link</button>
+            <button onClick={() => {navigate("/Play")}}>Volver al Menu</button>
+          </div>
         </div>
       )}
     </div>
