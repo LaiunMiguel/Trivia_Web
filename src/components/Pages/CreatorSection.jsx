@@ -82,18 +82,21 @@ const CreatorSection = () => {
 
 
   return (
-    <div className="DeckCreator">
-      {!isReadyToSave ? (
-        <div className="creator-menu">
-          <h2>Pregunta numero {questionNumber}</h2>
-          <PreguntaCreador onAddQuestion={addQuestion} />
-          <button onClick={handleFinishQuestions}>Terminar Trivia</button>
-        </div>
-      ) : (
-        <TriviaForm handleBackButton={handleBackButton} handleSave={handleSave} handleShare={handleShare}/>
-      )}
+    <div className="DeckPage">   
+      <div className="DeckCreator">
+        {!isReadyToSave ? (
+          <div className="creator-menu">
+            <h2>Pregunta numero {questionNumber}</h2>
+            <PreguntaCreador onAddQuestion={addQuestion} />
+            <button onClick={handleFinishQuestions}>Terminar Trivia</button>
+          </div>
+        ) : (
+          <TriviaForm handleBackButton={handleBackButton} handleSave={handleSave} handleShare={handleShare}/>
+        )}
+      </div>
     </div>
   );
+
 };
 
 export default CreatorSection;

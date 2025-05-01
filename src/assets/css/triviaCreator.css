@@ -1,3 +1,7 @@
+.DeckPage{
+  height: 85vh;
+}
+
 .DeckCreator {
   display: flex;
   flex-direction: column;

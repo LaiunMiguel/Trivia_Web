@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/pregunta.css";
 
-const Pregunta = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) => {
+const Pregunta = ({ questionData, onAnswerCorrect, onAnswerIncorrect,alredyResponded }) => {
   const [flip, setFlip] = useState(false);
+  const [answer, setAnswer] = useState("");
   const [isAnswered, setIsAnswered] = useState(false);
 
   useEffect(() => {
     setFlip(false);
-    setIsAnswered(false);
+    setAnswer("");
+    if (alredyResponded) {
+      setIsAnswered(true);
+    } else {
+      setIsAnswered(false);
+    }
   }, [questionData]);
 
   const handleFlip = () => {
     setFlip((prev) => !prev);
+    setAnswer(questionData.r);
   };
 
   return (
@@ -24,9 +31,8 @@ const Pregunta = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) => {
       </div>
 
       <div className="preguntaTarjeta__cara preguntaTarjeta__trasera">
-        {flip && (
-          <div className="response">
-            <h2>{questionData.r}</h2>
+          <div className="answer">
+            <h2>{answer}</h2>
             <div className="honestMan">
               <button onClick={(e) => {e.stopPropagation();onAnswerCorrect();setIsAnswered(true);}} disabled={isAnswered} data-icon="✔">
                 Acerté
@@ -36,7 +42,6 @@ const Pregunta = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) => {
               </button>
             </div>
           </div>
-        )}
       </div>
     </div>
   );

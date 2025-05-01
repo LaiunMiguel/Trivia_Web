@@ -8,11 +8,20 @@
   background: linear-gradient(to bottom, #3576b8, #2e4657);
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: fit-content;
 }
 
 .MazoPregunta h1 {
+  font-size: clamp(1.5rem, 2vw, 3rem);
   color: white;
   text-align: center;
+}
+
+.pregunta-buttons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
 }
 
 
@@ -24,8 +33,6 @@
   width: 100%;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  gap: 1rem;
-  margin-bottom: 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -51,8 +58,13 @@
 
 .final-score-buttons {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   gap: 1rem;
+}
+
+.final-score-buttons button {
+  width: 100%;
 }
 
 .final-score h2 {

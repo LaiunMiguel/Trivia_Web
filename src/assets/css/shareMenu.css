@@ -1,0 +1,37 @@
+.share-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.share-button {
+  background-color: #4CAF50;
+
+}
+
+.share-button:hover {
+  background-color: #45a049;
+}
+
+.share-options {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 10;
+  min-width: 160px;
+}
+.share-options a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  color: black;
+  text-decoration: none;
+}
+
+.share-options a:hover {
+  background-color: #ddd;
+}

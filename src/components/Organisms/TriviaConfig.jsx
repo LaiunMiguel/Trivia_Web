@@ -40,7 +40,7 @@ const TriviaConfig = () => {
     }  }
 
   return (
-    <>
+    <div className="ConfigTrivia">
       {!triviaSelected ? (
       <div className="final-score">
         <h2>No tienes esta trivia!</h2>
@@ -70,7 +70,7 @@ const TriviaConfig = () => {
       ) : (
         <TriviaSelected questionsData={triviaSelected} timeChosen={timeChosen} handleFinish={handleFinish} randomSort={randomSort} />
       )}
-    </>
+    </div>
   );
 };
 

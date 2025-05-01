@@ -2,13 +2,14 @@ import React from 'react';
 import PreguntaConOpciones from '../Molecules/PreguntaConOpciones.jsx';
 import Pregunta from '../Molecules/Pregunta.jsx';
 
-const PreguntaHandler = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) => {
+const PreguntaHandler = ({ questionData, onAnswerCorrect, onAnswerIncorrect, alredyResponded }) => {
   if (questionData.o) {
     return (
       <PreguntaConOpciones 
         questionData ={questionData}
         onAnswerCorrect={onAnswerCorrect}
         onAnswerIncorrect={onAnswerIncorrect}
+        alredyResponded={alredyResponded}
       />
     );
   } else {
@@ -17,6 +18,7 @@ const PreguntaHandler = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) =
         questionData ={questionData}
         onAnswerCorrect={onAnswerCorrect}
         onAnswerIncorrect={onAnswerIncorrect  }
+        alredyResponded={alredyResponded}
       />
     );
   }

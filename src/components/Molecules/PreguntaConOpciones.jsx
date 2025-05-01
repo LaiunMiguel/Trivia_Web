@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import '../../assets/css/preguntaConOpciones.css';
 
-const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) => {
+const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,alredyResponded }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [shuffledOptions, setShuffledOptions] = useState([]);
 
@@ -11,9 +11,16 @@ const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect 
       const j = Math.floor(Math.random() * (i + 1));
       [options[i], options[j]] = [options[j], options[i]];
     }
+
+    if (alredyResponded) {
+      setSelectedOption(questionData.r);
+    }
+    else{
+      setSelectedOption(null);
+    }
     setShuffledOptions(options);
-    setSelectedOption(null);
   }, [questionData]);
+
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);

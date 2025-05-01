@@ -3,7 +3,7 @@
   position: relative;
   padding: 1rem;
   min-width: 98vw;
-  min-height: 60vh;
+  min-height: 85vh;
 }
 
 .PlayButtons {
@@ -57,10 +57,14 @@
   padding: 2rem;
 }
 
+.ConfigTrivia {
+  min-height: 85vh;
+}
+
 .deck-config {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: fit-content;
   width: fit-content;
   margin: auto;
   padding: 2rem;

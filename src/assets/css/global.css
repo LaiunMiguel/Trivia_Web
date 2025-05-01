@@ -49,6 +49,8 @@ html {
     color: var(--text-color);
 }
 
+
+
 h2{
   word-break: break-word;
   overflow-wrap: break-word;

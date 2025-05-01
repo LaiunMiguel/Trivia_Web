@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PreguntaHandler from "./PreguntaHandler.jsx";
 import Timer from "../Atoms/Timer.jsx";
+import ShareMenu from "../Molecules/ShareMenu.jsx";
 import "../../assets/css/TriviaSelected.css";
 import { useNavigate } from 'react-router';
-import { toast } from "react-toastify";
+
 
 
 
@@ -15,6 +16,7 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) =
   const [isAnswered , setIsAnswered ] = useState(false);
   const [puntaje, setPuntaje] = useState(0);
   const [isFinish, setIsFinish] = useState(false);
+  const [lastQuestionAnsered, setLastQuestionAnswered] = useState(0);
   const navigate = useNavigate();
 
 
@@ -31,15 +33,19 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) =
       setPreguntas(questionsData.questions);
     }
       setPreguntaActual(0);
+      setLastQuestionAnswered(0);
       setCantPreguntas(questionsData.questions.length);
       setIsTimerActive(true);
   }, [questionsData]);
 
   const handleSiguientePregunta = () => {
-    if (preguntaActual < preguntas.length - 1 ) {
-      setIsAnswered(false);
+    if (preguntaActual < preguntas.length - 1  ) {
+
+      if(preguntaActual >= lastQuestionAnsered) {
+        setIsAnswered(false);
+        setIsTimerActive(true);
+      }
       setPreguntaActual((prev) => prev + 1);
-      setIsTimerActive(true);
     }
     else {
       setIsFinish(true);
@@ -47,7 +53,18 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) =
     }
   };
 
+  const handleAnteriorPregunta = () => {
+    if (preguntaActual > 0) {
+      setPreguntaActual((prev) => prev - 1);
+      setIsAnswered(true);
+      setIsTimerActive(false);
+    }
+  }
+
   const handleAnswer = () => {
+    if(preguntaActual >= lastQuestionAnsered) {
+      setLastQuestionAnswered(preguntaActual);  
+    }
     setIsAnswered(true);
     pauseTimer();
   };
@@ -70,23 +87,6 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) =
     handleSiguientePregunta();
   };
 
-  const handleShare = () => {
-
-
-    if (questionsData.id.startsWith("local")) { // Cambiado a startsWith
-      return toast.error("No se puede compartir una trivia local");
-    }
-    const url = window.location.href; 
-    navigator.clipboard.writeText(url)
-      .then(() => {
-        toast.success('¡Enlace copiado al portapapeles!');
-      })
-      .catch(err => {
-        toast.error('Error al copiar el enlace: ');
-      });
-  };
-
-
   return (
     <div className="MazoPregunta">
       <h1>Trivia: {questionsData.name}</h1>
@@ -98,16 +98,24 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) =
             <h2>Tiempo restante: <Timer key={preguntaActual} timeLimit={timeChosen} onTimeUp={handleTimeUp} isActive={isTimerActive} /></h2>
           </div>
             {preguntas.length > 0 && (
-              <PreguntaHandler questionData={preguntas[preguntaActual]} onAnswerCorrect={handleCorrectAnswer} onAnswerIncorrect={handleIncorrectAnswer} />
+              <PreguntaHandler questionData={preguntas[preguntaActual]} onAnswerCorrect={handleCorrectAnswer} onAnswerIncorrect={handleIncorrectAnswer} alredyResponded={isAnswered} />
             )}
-          <button onClick={handleSiguientePregunta} disabled={preguntaActual >= preguntas.length || !isAnswered}>Siguiente Pregunta</button>
+          <div className="pregunta-buttons">
+              <button onClick={handleAnteriorPregunta} disabled={preguntaActual === 0}>Pregunta Anterior</button>
+              <button onClick={handleSiguientePregunta} disabled={preguntaActual >= preguntas.length || !isAnswered}>Pregunta Siguiente</button>
+          </div>
         </>
       ) : (
         <div className="final-score">
           <h2>¡Has terminado!</h2>
           <h2>Respondiste correctamente {puntaje} de {cantPreguntas} preguntas</h2>
           <div className="final-score-buttons">
-            <button onClick={handleShare}> Copiar Link</button>
+            {!questionsData.id.startsWith("local") && (
+                <ShareMenu 
+                  url={window.location.href}
+                  text="¡Juega esta trivia!" 
+                />
+            )}
             <button onClick={() => {navigate("/Play")}}>Volver al Menu</button>
           </div>
         </div>
