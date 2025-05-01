@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import SelectorHandler from "./SelectorHandler";
-import "../assets/css/menu.css";
+import "../../assets/css/menu.css";
+import { useNavigate } from "react-router";
+
 
 export const MODES = {
   CREATOR: "Creator",
@@ -9,26 +9,22 @@ export const MODES = {
 };
 
 const Menu = () => {
-  const [mode, setMode] = useState(MODES.MENU);
+  const navigate = useNavigate(); // Usa useNavigate
 
   const handleModeChange = (newMode) => {
-    setMode(newMode);
+    if (newMode === MODES.CREATOR) {
+      navigate("/Create");
+    } else if (newMode === MODES.PLAY) {
+      navigate("/Play"); // Cambia la ruta a /Play
+    }
   };
-
-  const handleMenuButton = () => {
-    setMode(MODES.MENU); 
-  }
 
   return (
     <div className="Menu">
-      {mode === MODES.MENU ? (
           <div className="mode-selector">
             <button onClick={() => handleModeChange(MODES.CREATOR)}>Crea tu Trivia</button>
             <button onClick={() => handleModeChange(MODES.PLAY)}>Juega una Trivia</button>
-          </div>
-      ) : (
-        <SelectorHandler mode={mode} handleMenuButton={handleMenuButton} />
-      )}
+        </div>
     </div>
 
   );

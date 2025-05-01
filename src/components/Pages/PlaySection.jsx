@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
-import LoadingMenu from "./LoadingMenu.jsx";
-import TriviaConfig from "./TriviaConfig.jsx";
-import TriviaDetails from "./TriviaDetails.jsx";
-import TriviaService from "../service/TriviaService.js";
-import PlayMenu from "./PlayMenu.jsx";  
-import "../assets/css/playSection.css";
+import LoadingMenu from "../Molecules/LoadingMenu.jsx";
+import TriviaDetails from "../Molecules/TriviaDetails.jsx";
+import TriviaService from "../../service/TriviaService.js";
+import PlayMenu from "../Organisms/PlayMenu.jsx";  
+import "../../assets/css/playSection.css";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router';
 
 
 
 const PlaySection = ({ handleMenuButton }) => {
   // --- State ---
-  const [triviaSelected, setTriviaSelected] = useState(null);
-  const [isConfigured, setIsConfigured] = useState(false);
   const [triviasData, setTriviasData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 24;
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   // --- Service ---
   const triviaService = new TriviaService();
@@ -34,8 +33,7 @@ const PlaySection = ({ handleMenuButton }) => {
 
   // --- Handlers ---
   const handleTriviaSelection = (trivia) => {
-    setTriviaSelected(trivia);
-    setIsConfigured(true);
+    navigate("/Play/"+ trivia.id);
   };
 
   const handleLocalTrivias = () => {
@@ -117,8 +115,7 @@ const PlaySection = ({ handleMenuButton }) => {
     }
     const randomIndex = Math.floor(Math.random() * triviasData.length);
     const randomTrivia = triviasData[randomIndex];
-    setTriviaSelected(randomTrivia);
-    setIsConfigured(true);
+    handleTriviaSelection(randomTrivia);
   };
 
   const handleRandomTriviaTotal = () => {
@@ -129,15 +126,9 @@ const PlaySection = ({ handleMenuButton }) => {
     }
     const randomIndex = Math.floor(Math.random() * todasTrivias.length);
     const randomTrivia = todasTrivias[randomIndex];
-    setTriviaSelected(randomTrivia);
-    setIsConfigured(true);
+    handleTriviaSelection(randomTrivia);
   };
   
-  const handleFinish = (score) => {
-    triviaService.markAsResolved(triviaSelected,score);
-    handleTodasMisTrivias();
-  }
-
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
   
   // --- Pagination ---
@@ -151,7 +142,7 @@ const PlaySection = ({ handleMenuButton }) => {
     <div className="PlaySection">
       {isLoading ? (
         <LoadingMenu />
-      ) : !isConfigured ? (
+      ):(
         <>
           <PlayMenu
             handleMenuButton={handleMenuButton}
@@ -189,8 +180,6 @@ const PlaySection = ({ handleMenuButton }) => {
             <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage * itemsPerPage >= triviasData.length}>→</button>
           </div>
         </>
-      ) : (
-        <TriviaConfig triviaSelected={triviaSelected} handleFinish={handleFinish}/>
       )}
     </div>
   );

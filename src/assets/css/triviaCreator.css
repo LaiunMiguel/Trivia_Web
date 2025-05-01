@@ -5,15 +5,16 @@
   padding: 1.2rem;       
   margin: 0 auto;
   background-color: white;
+  width: fit-content;
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
 }
 
 .DeckCreator h2 {
   color: var(--primary-color);
-  margin-bottom: 0.7rem; /* Reduced from 1.2rem */
+  margin-bottom: 0.7rem; 
   text-align: center;
-  font-size: 1.5rem;     /* Reduced from 2rem */
+  font-size: 1.5rem;
   font-weight: 700;
 }
 
@@ -87,7 +88,6 @@
 @media (max-width: 768px) {
   .DeckCreator {
     padding: 1rem;
-    width: 98%;
   }
   .config-menu {
     padding: 1.2rem;

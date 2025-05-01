@@ -1,4 +1,4 @@
-import "../assets/css/preguntaCreador.css";
+import "../../assets/css/preguntaCreador.css";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 

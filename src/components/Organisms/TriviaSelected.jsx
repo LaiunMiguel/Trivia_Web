@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PreguntaHandler from "./PreguntaHandler.jsx";
-import Timer from "./Timer.jsx";
-import "../assets/css/TriviaSelected.css";
+import Timer from "../Atoms/Timer.jsx";
+import "../../assets/css/TriviaSelected.css";
+import { useNavigate } from 'react-router';
+
 
 const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) => {
   const [cantPreguntas, setCantPreguntas] = useState(0);
@@ -11,6 +13,10 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) =
   const [isAnswered , setIsAnswered ] = useState(false);
   const [puntaje, setPuntaje] = useState(0);
   const [isFinish, setIsFinish] = useState(false);
+  const navigate = useNavigate();
+
+
+
 
   useEffect(() => {
     if (randomSort) {
@@ -80,6 +86,7 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) =
         <div className="final-score">
           <h2>¡Has terminado!</h2>
           <h2>Respondiste correctamente {puntaje} de {cantPreguntas} preguntas</h2>
+          <button onClick={() => {navigate("/Play")}}>Volver al Menu</button>
         </div>
       )}
     </div>

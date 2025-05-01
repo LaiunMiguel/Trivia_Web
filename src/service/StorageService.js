@@ -21,16 +21,32 @@ class StorageService {
 
         localStorage.setItem("Trivia_decks", JSON.stringify(triviasData));
         localStorage.setItem("Trivias_IDs", JSON.stringify(Trivias_IDs));
+        this.reorderTrivias()
+
     }
 
     saveTrivia(trivia) {
         const existingDecks = JSON.parse(localStorage.getItem("local_trivia_decks")) || [];
       
-        trivia.id = existingDecks.length;
+        trivia.id = "local" + existingDecks.length;
         existingDecks.push(trivia);
       
         localStorage.setItem("local_trivia_decks", JSON.stringify(existingDecks));
         return trivia;
+    }
+
+    saveImportTrivia(trivia) {
+        const existingTrivias = JSON.parse(localStorage.getItem("Trivia_decks")) || [];
+        const existingIds = JSON.parse(localStorage.getItem("Trivias_IDs")) || [];
+
+        existingIds.push(trivia.id);
+        existingTrivias.push(trivia);
+      
+        localStorage.setItem("Trivia_decks", JSON.stringify(existingTrivias));
+        localStorage.setItem("Trivias_IDs", JSON.stringify(existingIds));
+        this.reorderTrivias()
+        return trivia;
+
     }
 
     loadAllTrivias() {
@@ -53,6 +69,18 @@ class StorageService {
         return triviasLocales;
     }
 
+    getTriviaById(triviaId) {
+        const triviasData = JSON.parse(localStorage.getItem("Trivia_decks")) || [];
+        const trivia = triviasData.find((trivia) => trivia.id === triviaId);
+        return trivia;
+    }
+
+    getLocalTriviaById(triviaId) {
+        const triviasLocales = JSON.parse(localStorage.getItem("local_trivia_decks")) || [];
+        const trivia = triviasLocales.find((trivia) => trivia.id === triviaId);
+        return trivia;
+    }
+
     markAsResolved(triviaResolved) {
         
         if (triviaResolved.canBeExported) {
@@ -60,6 +88,7 @@ class StorageService {
             const updatedTriviasLocales = triviasLocales.filter((trivia) => trivia.id !== triviaResolved.id);
             updatedTriviasLocales.push(triviaResolved);
             localStorage.setItem("local_trivia_decks", JSON.stringify(updatedTriviasLocales));
+            this.reorderLocalTrivias()
             return updatedTriviasLocales;
         }
 
@@ -67,20 +96,22 @@ class StorageService {
             const updatedTrivias = trivias.filter((trivia) => trivia.id !== triviaResolved.id);
             updatedTrivias.push(triviaResolved);
             localStorage.setItem("Trivia_decks", JSON.stringify(updatedTrivias));
+            this.reorderTrivias()
             return updatedTrivias;
+
+        
         
     }
 
-    triviaExported(triviaId) {
+    triviaExported(exportedTrivia, newId) {
         const triviasLocales = JSON.parse(localStorage.getItem("local_trivia_decks")); 
-        const trivia = triviasLocales.find((trivia) => trivia.id === triviaId);
-        trivia.canBeExported = false;
-
-        const updatedTriviasLocales = triviasLocales.filter((trivia) => trivia.id !== triviaId);
+        const updatedTriviasLocales = triviasLocales.filter((trivia) => trivia.id !== exportedTrivia.id);
         localStorage.setItem("local_trivia_decks", JSON.stringify(updatedTriviasLocales));
 
         const triviasData = JSON.parse(localStorage.getItem("Trivia_decks")) || [];
-        triviasData.push(trivia);
+        exportedTrivia.id = newId;
+        exportedTrivia.canBeExported = false;
+        triviasData.push(exportedTrivia);
         localStorage.setItem("Trivia_decks", JSON.stringify(triviasData));
 
     }
@@ -100,6 +131,24 @@ class StorageService {
     getIDs() {
         const IDs = JSON.parse(localStorage.getItem("Trivias_IDs")) || [];
         return IDs;
+    }
+
+    reorderTrivias() {
+        const triviasData = JSON.parse(localStorage.getItem("Trivia_decks"));
+        const orderedTrivias = triviasData.sort((a, b) => a.id.localeCompare(b.id));
+        localStorage.setItem("Trivia_decks", JSON.stringify(orderedTrivias));
+    }
+
+    reorderLocalTrivias() {
+        const triviasLocales = JSON.parse(localStorage.getItem("local_trivia_decks"));
+        const orderedTrivias = triviasLocales.sort((a, b) => {
+            // Extraemos los números de los IDs y los comparamos
+            const numA = parseInt(a.id.replace(/[^\d]/g, ''), 10);
+            const numB = parseInt(b.id.replace(/[^\d]/g, ''), 10);
+            
+            return numA - numB;
+          });
+        localStorage.setItem("local_trivia_decks", JSON.stringify(orderedTrivias));
     }
 
 }

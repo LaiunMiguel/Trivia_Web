@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import "../assets/css/triviaDetails.css";
+import "../../assets/css/triviaDetails.css";
 
 const TriviaDetails = ({triviaData, handleClick, handleShare, handleDelete}) => {
 

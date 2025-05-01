@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/css/loadingMenu.css';
+import '../../assets/css/loadingMenu.css';
 
 const LoadingMenu = () => {
   return (

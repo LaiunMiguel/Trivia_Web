@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../assets/css/searchTrivia.css";
+import "../../assets/css/searchTrivia.css";
 
 const SearchTrivia = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");

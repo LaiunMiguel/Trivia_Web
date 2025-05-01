@@ -1,6 +1,6 @@
 import React from 'react';
-import PreguntaConOpciones from './PreguntaConOpciones.jsx';
-import Pregunta from './Pregunta.jsx';
+import PreguntaConOpciones from '../Molecules/PreguntaConOpciones.jsx';
+import Pregunta from '../Molecules/Pregunta.jsx';
 
 const PreguntaHandler = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) => {
   if (questionData.o) {

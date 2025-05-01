@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../assets/css/pregunta.css";
+import "../../assets/css/pregunta.css";
 
 const Pregunta = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) => {
   const [flip, setFlip] = useState(false);

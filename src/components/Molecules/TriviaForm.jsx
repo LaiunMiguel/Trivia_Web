@@ -2,7 +2,7 @@ import React, {useState } from "react";
 import { toast } from "react-toastify";
 
 
-const TriviaForm = ({handleSave,handleShare}) => {
+const TriviaForm = ({handleBackButton,handleSave,handleShare}) => {
 
   const [name, setName] = useState("");
   const [author, setAuthor] = useState(""); 
@@ -55,6 +55,7 @@ const TriviaForm = ({handleSave,handleShare}) => {
       value={description}
       onChange={(e) => setDescription(e.target.value)}
     />
+    <button onClick={handleBackButton}  disabled={isSaved}>Volver Atras</button>
     <button onClick={handleSavaButton}  disabled={isSaved}>Guardar Trivia</button>
     <button onClick={handleShareButton} disabled={!isReadyToShare}>
       Subir Trivia

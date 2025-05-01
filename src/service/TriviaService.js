@@ -52,6 +52,17 @@ class TriviaService {
         return unResolvedTrivias;
     }
 
+    getTriviaById(id) {
+        let trivia;
+        if (id.startsWith("local")) {
+            trivia = storageService.getLocalTriviaById(id);
+        }
+        else {
+            trivia = storageService.getTriviaById(id);
+        }
+        return trivia;
+    }
+
     searchTrivias(searchTerm) {
         const trivias = storageService.loadAllTrivias();
         const searchTermLower = searchTerm.toLowerCase();
@@ -102,6 +113,21 @@ class TriviaService {
         return trivias;
     }
 
+    async importOnly(trivia_id) {
+        if (trivia_id.startsWith("local")) {
+            throw new Error("No se puede importar una trivia local pide que la suban");
+        }
+
+        const trivias = await this.importFromGoogle();
+        const trivia = trivias.find((trivia) => trivia.id.toString() === trivia_id);
+        if (!trivia) {
+            throw new Error("No se encontro la trivia");
+        }
+        storageService.saveImportTrivia(trivia);
+        return trivia;
+        
+    }
+
     async importFromGoogle() {
         const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQg3Lw9g7-dzxR06bUd3QNsrXN2wLuKADNpgueNfgYmu-cLLRwG66mzprF4bJaV57tr-F-EX-TnZY9d/pub?gid=1022024749&single=true&output=csv";
         try {
@@ -120,10 +146,15 @@ class TriviaService {
             throw new Error(`No se puedo traer las trivias intentelo devuelta mas tarde`)
         }
     }
+    
+    async exportTrivia(trivia) {
+        const trivias = await this.importFromGoogle();
+        const lastID = parseInt(trivias[trivias.length - 1].id, 10); // Convierte el string a número entero
+        this.exportTriviaFromGoogle(trivia);
+        storageService.triviaExported(trivia, (lastID + 1).toString());
+    }
 
-
-
-    async exportTrivia (trivia){
+    async exportTriviaFromGoogle (trivia){
 
             const code = compressCode(trivia.questions);
             const formData = new FormData();
@@ -141,14 +172,8 @@ class TriviaService {
                 mode: "no-cors",
                 body: formData
             })
-            .then(() => {
-                storageService.triviaExported(trivia.id);
-            })          
-
-        return this.loadTrivias();   
+           
     }
-
-    
 
 }
 

@@ -1,9 +1,9 @@
 import React, {useState } from "react";
 import { toast } from "react-toastify";
-import PreguntaCreador from "./PreguntaCreador.jsx";
-import TriviaForm from "./TriviaForm.jsx"
-import TriviaService from "../service/TriviaService.js";  
-import "../assets/css/triviaCreator.css";
+import PreguntaCreador from "../Molecules/PreguntaCreador.jsx";
+import TriviaForm from "../Molecules/TriviaForm.jsx"
+import TriviaService from "../../service/TriviaService.js";  
+import "../../assets/css/triviaCreator.css";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
@@ -58,6 +58,10 @@ const CreatorSection = () => {
     }
   };
 
+  const handleBackButton = () => {
+    setIsReadyToSave(false);
+  }
+
 
   const confirmReady = () => {
     confirmAlert({
@@ -86,7 +90,7 @@ const CreatorSection = () => {
           <button onClick={handleFinishQuestions}>Terminar Trivia</button>
         </div>
       ) : (
-        <TriviaForm handleSave={handleSave} handleShare={handleShare}/>
+        <TriviaForm handleBackButton={handleBackButton} handleSave={handleSave} handleShare={handleShare}/>
       )}
     </div>
   );

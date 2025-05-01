@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import '../assets/css/preguntaConOpciones.css';
+import '../../assets/css/preguntaConOpciones.css';
 
 const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect }) => {
   const [selectedOption, setSelectedOption] = useState(null);
