@@ -9,7 +9,7 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="header-content" onClick={() => navigate('/')} style={{cursor:"pointer"}}> 
+      <div className="header-content" onClick={() => navigate('')} style={{cursor:"pointer"}}> 
         <div className="logo">
           <img src={logoUrl} alt="Trivia Web Logo" className="logo-image" />
         </div>
