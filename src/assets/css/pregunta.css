@@ -1,6 +1,7 @@
 .preguntaTarjeta {
   width: var(--trivia-card-width);
   height:  var(--trivia-card-height);
+
   perspective: 1000px;
   cursor: pointer;
   position: relative;
@@ -23,6 +24,7 @@
   height: 100%;
   backface-visibility: hidden;
   display: flex;
+  flex-direction: column;  
   justify-content: center;
   align-items: center;
   font-size: clamp(1rem, 2.5vw, 1.5rem);
@@ -56,7 +58,13 @@
   padding: clamp(0.5rem, 2vw, 1rem);
 }
 
-
+.imagen-container img {
+  max-width: 100%;
+  max-height: clamp(150px, 35vh, 300px);
+  object-fit: contain;
+  border-radius: var(--trivia-border-radius);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
 
 .honestMan {
   display: flex;

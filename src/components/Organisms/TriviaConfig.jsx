@@ -10,8 +10,13 @@ const TriviaConfig = () => {
   const [isConfigured, setIsConfigured] = useState(false);
   const [timeChosen, setTimeChosen] = useState(60);
   const [randomSort, setRandomSort] = useState(false);
+  const [vozActive, setVozActive] = useState(false);
   const [triviaSelected, setTriviaSelected] = useState([]);
   const [isImporting, setIsImporting] = useState(false);
+  
+  // --- Voz ---
+  const [voices, setVoices] = useState([]);
+  const [selectedVoice, setSelectedVoice] = useState(null);
 
   // --- Service ---
   const triviaService = new TriviaService();
@@ -21,12 +26,21 @@ const TriviaConfig = () => {
     setTriviaSelected(trivia);
   }, [trivia_id]);
 
+  useEffect(() => {
+    const availableVoices = speechSynthesis.getVoices();
+    setVoices(availableVoices);
+  }, [vozActive]);
+
   const handleFinish = (score) => {
     triviaService.markAsResolved(triviaSelected, score);
   }
 
   const handeChangeRandomSort = () => {
     setRandomSort(prev => !prev);
+  }
+
+  const handeChangeVozActive = () => {
+    setVozActive(prev =>!prev);
   }
 
   const handleImport = async () => {
@@ -64,11 +78,31 @@ const TriviaConfig = () => {
               checked={randomSort}
               onChange={handeChangeRandomSort}
             />
+            <p>Voz Lectora:</p>
+            <input
+              id="multiple-choice"
+              type="checkbox"
+              checked={vozActive}
+              onChange={handeChangeVozActive}
+            />
           </div>
+          {vozActive && 
+            <select value={selectedVoice?.name || ""} onChange={(e) => {
+                  const voice = voices.find(v => v.name === e.target.value);
+                  setSelectedVoice(voice);
+                }}>
+                  <option value="">Seleccionar voz</option>
+                  {voices.map((voice) => (
+                    <option key={voice.name} value={voice.name}>
+                      {voice.name} ({voice.lang})
+                    </option>
+                  ))}
+            </select>}
+
           <button onClick={() => setIsConfigured(true)}>Comenzar</button>
         </div>
       ) : (
-        <TriviaSelected questionsData={triviaSelected} timeChosen={timeChosen} handleFinish={handleFinish} randomSort={randomSort} />
+        <TriviaSelected questionsData={triviaSelected} timeChosen={timeChosen} handleFinish={handleFinish} randomSort={randomSort} isVoiceOn={vozActive} voiceSelected={selectedVoice}/>
       )}
     </div>
   );

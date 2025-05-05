@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import '../../assets/css/preguntaConOpciones.css';
 
-const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,alredyResponded }) => {
+const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,alredyResponded,isVoiceOn,handleSpeak }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [shuffledOptions, setShuffledOptions] = useState([]);
 
@@ -21,6 +21,13 @@ const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,
     setShuffledOptions(options);
   }, [questionData]);
 
+  useEffect(() => {
+
+    if (isVoiceOn) {
+      handleSpeak(shuffledOptions);
+    }
+  }, [shuffledOptions]);
+
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -35,6 +42,10 @@ const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,
   return (
     <div className='preguntaTarjetaOpciones'>
       <h2>{questionData.q}</h2>
+      {questionData.img && 
+        <div className="imagen-container">
+          <img src={questionData.img} alt="Imagen de la pregunta" />        
+        </div>}
       <div className='PreguntaOpciones'>
         {shuffledOptions.map((option, index) => (
           <button

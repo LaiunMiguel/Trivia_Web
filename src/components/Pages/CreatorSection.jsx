@@ -11,15 +11,29 @@ const triviaService = new TriviaService();
 
 const CreatorSection = () => {
   const [questionsData, setQuestionsData] = useState([]);
-  const [questionNumber, setQuestionNumber] = useState(1);
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const [lastQuestionNumber, setLastQuestionNumber] = useState(0);
   const [isReadyToSave, setIsReadyToSave] = useState(false);
   const [selectedTrivia, setSelectedTrivia] = useState(null);
 
   const addQuestion = (newQuestion) => {
+    
+    if (questionNumber < lastQuestionNumber){
+      setQuestionsData((prevQuestions) => {
+        const updatedQuestions = [...prevQuestions];
+        updatedQuestions[questionNumber] = newQuestion;
+        return updatedQuestions;
+      });
+    }
+    else if (questionNumber === lastQuestionNumber){
+      setQuestionsData((prevQuestions) => [...prevQuestions, newQuestion]);
+      setLastQuestionNumber((prevLastQuestionNumber) => prevLastQuestionNumber + 1);
+    }
     setQuestionNumber((prevQuestionNumber) => prevQuestionNumber + 1);
-    setQuestionsData((prevQuestions) => [...prevQuestions, newQuestion]);
   };
 
+  // Nueva función para reroceder una pregunta
+ 
   const handleSave = (formData) => {
     try {
       const trivia = {
@@ -80,14 +94,30 @@ const CreatorSection = () => {
     });
 };
 
+  const handleBeforeQuestion = () => {
+    if (questionNumber > 0) {
+      setQuestionNumber((prevQuestionNumber) => prevQuestionNumber - 1);
+    }
+  }
+
+  const handleNextQuestion = () => {
+    if (questionNumber < lastQuestionNumber) {
+      setQuestionNumber((prevQuestionNumber) => prevQuestionNumber + 1);
+    }
+  };
 
   return (
     <div className="DeckPage">   
       <div className="DeckCreator">
         {!isReadyToSave ? (
           <div className="creator-menu">
-            <h2>Pregunta numero {questionNumber}</h2>
-            <PreguntaCreador onAddQuestion={addQuestion} />
+            <h2>Pregunta numero {questionNumber + 1}</h2>
+            <PreguntaCreador onAddQuestion={addQuestion} questionData={questionsData[questionNumber]} />
+            <div className="creator-menu-buttons">
+              <button onClick={handleBeforeQuestion} disabled={questionNumber < 1}>Anterior</button>
+              <button onClick={handleNextQuestion} disabled={questionNumber >= lastQuestionNumber}>Siguiente</button>
+            </div>
+
             <button onClick={handleFinishQuestions}>Terminar Trivia</button>
           </div>
         ) : (

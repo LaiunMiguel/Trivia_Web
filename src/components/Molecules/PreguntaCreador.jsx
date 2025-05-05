@@ -1,17 +1,39 @@
 import "../../assets/css/preguntaCreador.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const PreguntaCreador = ({ onAddQuestion }) => {
+const PreguntaCreador = ({ onAddQuestion, questionData }) => {
   const [questionText, setQuestionText] = useState("");
   const [options, setOptions] = useState(["", "", "", ""]);
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
+  const [containImage, setcontainImage] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
 
   // Maneja la actualización de la pregunta
   const handleQuestionChange = (e) => {
     setQuestionText(e.target.value);
   };
+
+  useEffect(() => {
+    if (questionData) {
+      setQuestionText(questionData.q);
+      setOptions(questionData.o || ["", "", "", ""]);
+      setCorrectAnswer(questionData.r);
+      setIsMultipleChoice(questionData.o ? true : false);
+      setcontainImage(questionData.img ? true : false);
+      setImageUrl(questionData.img || "");
+    }
+
+    else{
+      setQuestionText("");
+      setOptions(["", "", "", ""]);
+      setCorrectAnswer("");
+      setImageUrl("");
+      setcontainImage(false);
+    }
+    
+  }, [questionData])
 
   // Maneja la actualización de las opciones
   const handleResponseChange = (index, value) => {
@@ -27,6 +49,10 @@ const PreguntaCreador = ({ onAddQuestion }) => {
     setIsMultipleChoice((prev) => !prev);
   };
 
+  const handleToggleContainImage = () => {
+    setcontainImage((prev) =>!prev);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!questionText || !correctAnswer) {
@@ -38,10 +64,45 @@ const PreguntaCreador = ({ onAddQuestion }) => {
       return;
     }
 
+    if (isMultipleChoice && !options.some((option) => option)) {
+      toast.warning("Por favor, completa todas las opciones.");
+      return;
+    }
+
+    if (containImage && !imageUrl) {
+      toast.warning("Por favor, agrega la URL de la imagen.");
+      return;
+    }
+
+    // Validar si la URL es una imagen válida
+    if (containImage && imageUrl) {
+      const img = new window.Image();
+      img.onload = () => {
+        const newQuestion = {
+          q: questionText,
+          r: correctAnswer,
+          ...(isMultipleChoice && { o: options }),
+          ...(imageUrl && { img: imageUrl }),
+        };
+        onAddQuestion(newQuestion);
+        setQuestionText("");
+        setOptions(["", "", "", ""]);
+        setCorrectAnswer("");
+        setImageUrl("");
+        setcontainImage(false);
+      };
+      img.onerror = () => {
+        toast.warning("La URL de la imagen no es válida o no se pudo cargar.");
+      };
+      img.src = imageUrl;
+      return; // Salir para esperar la validación asíncrona
+    }
+
     const newQuestion = {
-      q: questionText, // pregunta
-      r: correctAnswer, // respuesta correcta
-      ...(isMultipleChoice && { o: options }), // opciones si es múltiple
+      q: questionText,
+      r: correctAnswer,
+      ...(isMultipleChoice && { o: options }),
+      ...(imageUrl && { img: imageUrl }),
     };
 
     onAddQuestion(newQuestion);
@@ -49,6 +110,8 @@ const PreguntaCreador = ({ onAddQuestion }) => {
     setQuestionText("");
     setOptions(["", "", "", ""]);
     setCorrectAnswer("");
+    setImageUrl("");
+    setcontainImage(false);
   };
 
   return (
@@ -64,7 +127,25 @@ const PreguntaCreador = ({ onAddQuestion }) => {
             placeholder="Escribe la pregunta"
           />
         </div>
+        
+        <div className="multipleBox">
+          <label htmlFor="multiple-choice">¿Tiene una imagen?</label>
+          <input
+            id="multiple-choice"
+            type="checkbox"
+            checked={containImage}
+            onChange={handleToggleContainImage}
+          />
+        </div>
 
+        {containImage &&    
+          <input
+            type="text"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            placeholder="Pegue la url de la imagen"
+          />
+        }
         <div className="multipleBox">
           <label htmlFor="multiple-choice">¿Es una pregunta de opción múltiple?</label>
           <input
@@ -78,7 +159,7 @@ const PreguntaCreador = ({ onAddQuestion }) => {
         {isMultipleChoice && (
           <>
             <div>
-              <label>Opciones:</label>
+            <label>Opciones (la primera es la correcta):</label>
               <div className="options-grid">
                 {options.map((option, index) => (
                   <input
@@ -92,7 +173,7 @@ const PreguntaCreador = ({ onAddQuestion }) => {
                     placeholder={
                       index === 0
                         ? "Respuesta correcta"
-                        : "Respuesta incorrecta"
+                        : `Incorrecta ${index}`
                     }
                     className={
                       index === 0 ? "correct-option" : "incorrect-option"
@@ -117,7 +198,9 @@ const PreguntaCreador = ({ onAddQuestion }) => {
           </div>
         )}
 
-        <button type="submit">Agregar Pregunta</button>
+        <button type="submit">
+          {questionData && questionData.q ? "Editar Pregunta" : "Agregar Pregunta"}
+        </button>
       </form>
     </div>
   );

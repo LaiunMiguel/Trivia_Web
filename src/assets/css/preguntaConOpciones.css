@@ -1,4 +1,5 @@
 .preguntaTarjetaOpciones {
+  min-height: fit-content;
   width: var(--trivia-card-width);
   height: var(--trivia-card-height);
   display: flex;
@@ -60,6 +61,14 @@
   opacity: 0.8;
 }
 
+.imagen-container img {
+  max-width: 100%;
+  max-height: clamp(200px, 45vh, 400px);
+  object-fit: contain;
+  border-radius: var(--trivia-border-radius);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
@@ -91,4 +100,3 @@
     min-height: 50px;
   }
 }
-

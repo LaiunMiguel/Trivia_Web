@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 
 
 
-const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) => {
+const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort,isVoiceOn,voiceSelected }) => {
   const [cantPreguntas, setCantPreguntas] = useState(0);
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [preguntas, setPreguntas] = useState([]);
@@ -98,7 +98,7 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort }) =
             <h2>Tiempo restante: <Timer key={preguntaActual} timeLimit={timeChosen} onTimeUp={handleTimeUp} isActive={isTimerActive} /></h2>
           </div>
             {preguntas.length > 0 && (
-              <PreguntaHandler questionData={preguntas[preguntaActual]} onAnswerCorrect={handleCorrectAnswer} onAnswerIncorrect={handleIncorrectAnswer} alredyResponded={isAnswered} />
+              <PreguntaHandler questionData={preguntas[preguntaActual]} onAnswerCorrect={handleCorrectAnswer} onAnswerIncorrect={handleIncorrectAnswer} alredyResponded={isAnswered} isVoiceOn={isVoiceOn} voiceSelected={voiceSelected} />
             )}
           <div className="pregunta-buttons">
               <button onClick={handleAnteriorPregunta} disabled={preguntaActual === 0}>Pregunta Anterior</button>
