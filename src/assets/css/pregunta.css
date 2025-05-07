@@ -122,3 +122,10 @@ button:disabled:hover {
 
 }
 
+@media (max-width: 768px) {
+
+  .preguntaTarjeta {
+    width: 100%;
+  }
+}
+

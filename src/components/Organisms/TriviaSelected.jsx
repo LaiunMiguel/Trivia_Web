@@ -93,7 +93,7 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort,isVo
       {!isFinish ? (
         <>
           <div className="score-info">
-            <h2>Preguntas restantes: {cantPreguntas - preguntaActual -1}</h2>
+            <h2>Pregunta: {preguntaActual+1} /  {cantPreguntas}</h2>
             <h2>Puntaje: {puntaje}</h2>
             <h2>Tiempo restante: <Timer key={preguntaActual} timeLimit={timeChosen} onTimeUp={handleTimeUp} isActive={isTimerActive} /></h2>
           </div>
@@ -101,8 +101,8 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort,isVo
               <PreguntaHandler questionData={preguntas[preguntaActual]} onAnswerCorrect={handleCorrectAnswer} onAnswerIncorrect={handleIncorrectAnswer} alredyResponded={isAnswered} isVoiceOn={isVoiceOn} voiceSelected={voiceSelected} />
             )}
           <div className="pregunta-buttons">
-              <button onClick={handleAnteriorPregunta} disabled={preguntaActual === 0}>Pregunta Anterior</button>
-              <button onClick={handleSiguientePregunta} disabled={preguntaActual >= preguntas.length || !isAnswered}>Pregunta Siguiente</button>
+              <button onClick={handleAnteriorPregunta} disabled={preguntaActual === 0}>Anterior</button>
+              <button onClick={handleSiguientePregunta} disabled={preguntaActual >= preguntas.length || !isAnswered}>Siguiente</button>
           </div>
         </>
       ) : (

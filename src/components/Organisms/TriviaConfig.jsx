@@ -53,6 +53,18 @@ const TriviaConfig = () => {
       toast.error(error.message);
     }  }
 
+  const handleComenzar = () => {
+    if (timeChosen <= 0) {
+      toast.error("El tiempo debe ser mayor a 0");
+      return;
+    }
+    if (vozActive && !selectedVoice) {
+      toast.error("Debe seleccionar una voz");
+      return;
+    }
+    setIsConfigured(true);
+  };
+
   return (
     <div className="ConfigTrivia">
       {!triviaSelected ? (
@@ -99,7 +111,7 @@ const TriviaConfig = () => {
                   ))}
             </select>}
 
-          <button onClick={() => setIsConfigured(true)}>Comenzar</button>
+          <button onClick={() => handleComenzar()}>Comenzar</button>
         </div>
       ) : (
         <TriviaSelected questionsData={triviaSelected} timeChosen={timeChosen} handleFinish={handleFinish} randomSort={randomSort} isVoiceOn={vozActive} voiceSelected={selectedVoice}/>

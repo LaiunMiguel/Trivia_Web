@@ -1,11 +1,12 @@
 .share-menu {
   position: relative;
   display: inline-block;
+  height: 100%;
 }
 
 .share-button {
+  height: 100%;
   background-color: #4CAF50;
-
 }
 
 .share-button:hover {
@@ -35,3 +36,31 @@
 .share-options a:hover {
   background-color: #ddd;
 }
+
+.copy-link{
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px !important;
+  color: black;
+  background: none;
+  border: none;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+  font-weight: 400;
+  border-radius: 0;
+  
+}
+
+.copy-link:hover{
+  background-color: #ddd !important;
+  transform: none !important;
+}
+.copy-link:focus {
+  outline: none;
+}
+

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { FaWhatsapp, FaFacebook, FaTwitter, FaTelegram } from "react-icons/fa";
+import { FaWhatsapp, FaFacebook, FaTwitter, FaTelegram, FaLink } from "react-icons/fa";
 import "../../assets/css/shareMenu.css";
 
 const ShareMenu = ({ url, text }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   const encodedUrl = encodeURIComponent(url);
   const encodedText = encodeURIComponent(text);
 
@@ -16,24 +17,37 @@ const ShareMenu = ({ url, text }) => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      setCopied(false);
+    }
+  };
+
   return (
     <div className="share-menu">
       <button onClick={toggleMenu} className="share-button">Compartir</button>
       {isOpen && (
         <div className="share-options">
-        <a href={links.whatsapp} target="_blank" rel="noopener noreferrer">
+          <a href={links.whatsapp} target="_blank" rel="noopener noreferrer">
             <FaWhatsapp /> WhatsApp
-        </a>
-        <a href={links.facebook} target="_blank" rel="noopener noreferrer">
+          </a>
+          <a href={links.facebook} target="_blank" rel="noopener noreferrer">
             <FaFacebook /> Facebook
-        </a>
-        <a href={links.twitter} target="_blank" rel="noopener noreferrer">
+          </a>
+          <a href={links.twitter} target="_blank" rel="noopener noreferrer">
             <FaTwitter /> X (Twitter)
-        </a>
-        <a href={links.telegram} target="_blank" rel="noopener noreferrer">
+          </a>
+          <a href={links.telegram} target="_blank" rel="noopener noreferrer">
             <FaTelegram /> Telegram
-        </a>
-    </div>
+          </a>
+          <button className="copy-link" onClick={handleCopy}>
+            <FaLink /> {copied ? "¡Copiado!" : "Copiar Link"}
+          </button>
+        </div>
       )}
     </div>
   );
