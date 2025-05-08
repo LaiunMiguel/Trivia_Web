@@ -135,14 +135,13 @@ class StorageService {
 
     reorderTrivias() {
         const triviasData = JSON.parse(localStorage.getItem("Trivia_decks"));
-        const orderedTrivias = triviasData.sort((a, b) => a.id.localeCompare(b.id));
+        const orderedTrivias = triviasData.sort((a, b) => a.id - b.id);
         localStorage.setItem("Trivia_decks", JSON.stringify(orderedTrivias));
     }
 
     reorderLocalTrivias() {
         const triviasLocales = JSON.parse(localStorage.getItem("local_trivia_decks"));
         const orderedTrivias = triviasLocales.sort((a, b) => {
-            // Extraemos los números de los IDs y los comparamos
             const numA = parseInt(a.id.replace(/[^\d]/g, ''), 10);
             const numB = parseInt(b.id.replace(/[^\d]/g, ''), 10);
             

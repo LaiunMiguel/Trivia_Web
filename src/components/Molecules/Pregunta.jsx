@@ -5,6 +5,7 @@ const Pregunta = ({ questionData, onAnswerCorrect, onAnswerIncorrect,alredyRespo
   const [flip, setFlip] = useState(false);
   const [answer, setAnswer] = useState("");
   const [isAnswered, setIsAnswered] = useState(false);
+  const [ampliada, setAmpliada] = useState(false);
 
   useEffect(() => {
     setFlip(false);
@@ -41,11 +42,18 @@ const Pregunta = ({ questionData, onAnswerCorrect, onAnswerIncorrect,alredyRespo
       className={`preguntaTarjeta ${flip ? "flipped" : ""}`}
       onClick={handleFlip}
     >
-      <div className="preguntaTarjeta__cara preguntaTarjeta__frontal">
+       <div className="preguntaTarjeta__cara preguntaTarjeta__frontal">
         <h2>{questionData.q}</h2>
         {questionData.img && 
-        <div className="imagen-container">
-          <img src={questionData.img} alt="Imagen de la pregunta" />        
+        <div className="imagen-container" onClick={(e) => {
+          e.stopPropagation();
+          setAmpliada(!ampliada);
+        }}>
+          <img 
+            src={questionData.img} 
+            alt="Imagen de la pregunta" 
+            className={ampliada ? "ampliada" : ""}
+          />
         </div>}
       </div>
 

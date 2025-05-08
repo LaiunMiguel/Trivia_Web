@@ -61,6 +61,8 @@
 .imagen-container img {
   max-width: 100%;
   max-height: clamp(150px, 35vh, 300px);
+  transition: transform 0.3s ease;
+  cursor: pointer;
   object-fit: contain;
   border-radius: var(--trivia-border-radius);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);

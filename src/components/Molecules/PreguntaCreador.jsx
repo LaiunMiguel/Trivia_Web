@@ -134,6 +134,7 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
           />
         </div>
         
+        <div >
         <div className="multipleBox">
           <label htmlFor="contains-image">¿Tiene una imagen?</label>
           <input
@@ -143,7 +144,6 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
             onChange={handleToggleContainImage}
           />
         </div>
-
         {containImage &&    
           <input
             type="text"
@@ -151,7 +151,10 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
             onChange={(e) => setImageUrl(e.target.value)}
             placeholder="Pegue la url de la imagen"
           />
-        }
+        }        
+        </div>
+
+        <div className="AnswerBox">
         <div className="multipleBox">
           <label htmlFor="multiple-choice">¿Es una pregunta de opción múltiple?</label>
           <input
@@ -162,9 +165,8 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
           />
         </div>
 
-        {isMultipleChoice && (
-          <>
-            <div>
+        {isMultipleChoice ? (
+            <>
             <label>Opciones (la primera es la correcta):</label>
               <div className="options-grid">
                 {options.map((option, index) => (
@@ -187,12 +189,9 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
                   />
                 ))}
               </div>
-            </div>
-          </>
-        )}
-
-        {!isMultipleChoice && (
-          <div>
+            </>
+        ) : (
+          <>
             <label>Respuesta Correcta:</label>
             <input
               type="text"
@@ -201,8 +200,10 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
               placeholder="Respuesta correcta"
               maxLength={45}
             />
-          </div>
+          </>
         )}
+        </div>
+
         <div className="formButtons">
         <button onClick={handlePreview}>Preview</button>
         <button type="submit">

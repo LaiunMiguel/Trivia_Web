@@ -122,6 +122,52 @@
   width: 100%;
 }
 
+.ayuda-play{
+  display: flex;
+  flex-direction: row;
+}
+
+.ayuda-play :first-child{
+  width: 100%;
+}
+
+
+.ayuda-play :last-child{
+  background-color: #6e18a8;
+}
+
+.ayuda-play :last-child:hover{
+  background-color: #3c0561;
+}
+
+.ayuda-container-play {
+  position: absolute;
+  background: #fff;
+  color: #222;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 2rem 1.5rem;
+  max-width: 400px;
+  width: 90vw;
+  z-index: 200;
+  text-align: left;
+  font-size: 1rem;
+  animation: fadeIn 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+.ayuda-container-play h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  color: var(--primary-color, #052d9c);
+  text-align: center;
+}
+
+.ayuda-container-play p {
+  margin: 0;
+  line-height: 1.5;
+}
+
 @media (max-width: 950px) {
   .trivia-list {
     grid-template-columns: repeat(2, 1fr);

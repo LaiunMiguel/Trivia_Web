@@ -4,6 +4,8 @@ import '../../assets/css/preguntaConOpciones.css';
 const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,alredyResponded,isVoiceOn,handleSpeak }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [shuffledOptions, setShuffledOptions] = useState([]);
+  const [ampliada, setAmpliada] = useState(false);
+
 
   useEffect(() => {
     const options = [...questionData.o];
@@ -43,8 +45,15 @@ const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,
     <div className='preguntaTarjetaOpciones'>
       <h2>{questionData.q}</h2>
       {questionData.img && 
-        <div className="imagen-container">
-          <img src={questionData.img} alt="Imagen de la pregunta" />        
+        <div className="imagen-container" onClick={(e) => {
+          e.stopPropagation();
+          setAmpliada(!ampliada);
+        }}>
+          <img 
+            src={questionData.img} 
+            alt="Imagen de la pregunta" 
+            className={ampliada ? "ampliada" : ""}
+          />
         </div>}
       <div className='PreguntaOpciones'>
         {shuffledOptions.map((option, index) => (

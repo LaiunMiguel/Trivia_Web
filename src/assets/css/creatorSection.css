@@ -10,7 +10,7 @@
   grid-template-areas:
     "windowSection questionsList"
     "navButtons navButtons";
-  gap: 1.5rem;
+  gap: 1rem;
   width: fit-content;
   height: fit-content;
   padding: 1.2rem;
@@ -31,8 +31,13 @@
 .QuestionsList {
   grid-area: questionsList;
   min-width: 60px;
-  max-height: 400px;
-  display: block;
+  min-height: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  flex-direction: column;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
@@ -74,15 +79,22 @@
 
 .creator-buttons button:first-child,
 .creator-buttons button:last-child {
-  background-color: #052d9c;
+  background-color: #2f2e79;
 }
 
 
 .question-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 1rem;
+  position: relative;
+}
+
+.question-header h2 {
+  width: 100%;
+  text-align: center;
+  margin: 0;
 }
 
 .trash-icon {
@@ -90,6 +102,8 @@
   cursor: pointer;
   font-size: 1.2rem;
   transition: transform 0.2s ease;
+  position: absolute;
+  right: 0;
 }
 
 .trash-icon:hover {
@@ -100,7 +114,7 @@
 
 @media (max-width: 768px) {
   .TriviaCreatorSection {
-    padding: clamp(0.5rem, 1vw, 1.25rem);
+    padding: clamp(0.5rem, 2vw, 1.25rem);
   }
 
   .creator-buttons  button {
@@ -109,17 +123,22 @@
   }
 
   .CreatorWindow {
+    padding: 0.5rem;
     min-width: 100%;
     width: 80vw;
   }
 
  .QuestionsList {
     min-width: 40px;
-    max-height: 400px;
+    max-height: 450px;
   }
 
   .Question {
-      width: 60px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    line-height: 1.2;
+    width: 40px;
+    height: 40px;
   }
 
 }

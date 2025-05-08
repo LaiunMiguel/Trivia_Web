@@ -54,14 +54,14 @@ const Menu = () => {
           <h2>Información de los modos</h2>
           <p>
             <strong>Crear tu Trivia:</strong> Te permite crear una trivia con preguntas infinitas. 
-            El orden de las respuestas se randomiza automáticamente. Las trivias creadas se pueden 
-            guardar y exportar para que otros usuarios las jueguen. No es necesario exportarlas en el momento: 
+            Las trivias creadas se pueden 
+            guardar y exportar para que otros usuarios las jueguen. <strong>No es necesario exportarlas en el momento</strong>: 
             también podés exportarlas más tarde desde la sección "Jugar".
           </p>
           <p>
             <strong>Jugar una Trivia:</strong> Podés elegir una trivia para jugar, importar trivias creadas por otros 
-            usuarios, definir el tiempo para responder y decidir si las preguntas se presentan en el orden original 
-            o de forma aleatoria.
+            usuarios, definir el tiempo para responder, decidir si las preguntas se presentan en el orden original 
+            o de forma aleatoria incluso activar la lectura de las preguntas.
           </p>
         </div>
         )}

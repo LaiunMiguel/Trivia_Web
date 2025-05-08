@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef} from "react";
 import TriviaSelected from "./TriviaSelected.jsx";
 import TriviaService from "../../service/TriviaService.js";
 import { useParams } from 'react-router';
@@ -13,6 +13,9 @@ const TriviaConfig = () => {
   const [vozActive, setVozActive] = useState(false);
   const [triviaSelected, setTriviaSelected] = useState([]);
   const [isImporting, setIsImporting] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
+  const menuRef = useRef(null);
+
   
   // --- Voz ---
   const [voices, setVoices] = useState([]);
@@ -30,6 +33,19 @@ const TriviaConfig = () => {
     const availableVoices = speechSynthesis.getVoices();
     setVoices(availableVoices);
   }, [vozActive]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowInfo(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleFinish = (score) => {
     triviaService.markAsResolved(triviaSelected, score);
@@ -64,6 +80,10 @@ const TriviaConfig = () => {
     }
     setIsConfigured(true);
   };
+
+  const handleHelpButton = () => {
+    setShowInfo(prev =>!prev);
+  }
 
   return (
     <div className="ConfigTrivia">
@@ -111,7 +131,24 @@ const TriviaConfig = () => {
                   ))}
             </select>}
 
+
+          <div className="ayuda-play" ref={menuRef}>
           <button onClick={() => handleComenzar()}>Comenzar</button>
+            <button onClick={() => handleHelpButton()}>?</button>
+          </div>
+
+
+          {showInfo && (
+          <div className="ayuda-container-play">
+            <h2>¿Cómo jugar y configurar la trivia?</h2>
+            <p><strong>Tiempo:</strong> Elige el tiempo para responder cada pregunta.</p>
+            <p><strong>Orden aleatorio:</strong> Marca esta opción si quieres que el orden en que aparecen las preguntas sea aleatorio </p>
+            <p><strong>Voz lectora:</strong> Marca esta opción si quieres activar la voz lectora. <strong>Importante</strong> las voces disponibles dependen de tu navegador.<br/></p>
+            <p><strong>Cómo se juega:</strong> Responde cada pregunta seleccionando la opción correcta o si no tienen opciones dando vuelta la tarjeta.</p>
+            <p><strong>Voz activa:</strong>Si activaste la voz, las preguntas se leerán en voz alta y despues las opciones.</p>
+            <p><strong>Imagenes:</strong> La trivia puede contener imagenes al presionarlas aumentan su tamaño.</p>
+          </div>
+          )}
         </div>
       ) : (
         <TriviaSelected questionsData={triviaSelected} timeChosen={timeChosen} handleFinish={handleFinish} randomSort={randomSort} isVoiceOn={vozActive} voiceSelected={selectedVoice}/>
