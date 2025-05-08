@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/Trivia_Web/static/css/main.aa1f2afb.css",
-    "main.js": "/Trivia_Web/static/js/main.b7b5e0e9.js",
+    "main.css": "/Trivia_Web/static/css/main.7be45011.css",
+    "main.js": "/Trivia_Web/static/js/main.15511563.js",
     "static/js/488.f6172336.chunk.js": "/Trivia_Web/static/js/488.f6172336.chunk.js",
     "static/media/cardBack.png": "/Trivia_Web/static/media/cardBack.cbb4dd89d9c1838256a3.png",
     "index.html": "/Trivia_Web/index.html",
-    "main.aa1f2afb.css.map": "/Trivia_Web/static/css/main.aa1f2afb.css.map",
-    "main.b7b5e0e9.js.map": "/Trivia_Web/static/js/main.b7b5e0e9.js.map",
+    "main.7be45011.css.map": "/Trivia_Web/static/css/main.7be45011.css.map",
+    "main.15511563.js.map": "/Trivia_Web/static/js/main.15511563.js.map",
     "488.f6172336.chunk.js.map": "/Trivia_Web/static/js/488.f6172336.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.aa1f2afb.css",
-    "static/js/main.b7b5e0e9.js"
+    "static/css/main.7be45011.css",
+    "static/js/main.15511563.js"
   ]
 }
