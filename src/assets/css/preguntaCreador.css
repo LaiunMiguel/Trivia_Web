@@ -1,9 +1,24 @@
 .question-creator {
   background-color: white;
-  min-width: 600px;
-  width: 75vw;
-  max-width: 1200px;
+  width: 100%;
   overflow-x: auto;
+}
+
+.question-creator button {
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0;
+  transition: none;
+}
+
+.question-creator button[type="submit"] {
+  background-color: var(--trivia-background-color-correct);
+}
+
+
+
+.question-creator button:hover {
+  transform: translateY(-2px) scale(1) !important;
 }
 
 .question-creator h3 {
@@ -12,6 +27,7 @@
   text-align: center;
   font-size: 1.3rem;    /* Reduced from 1.8rem */
 }
+
 
 .question-creator form {
   display: flex;
@@ -74,17 +90,10 @@
 }
 
 /* Estilo para el botón de envío */
-.question-creator button[type="submit"] {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 1rem;
-  border-radius: var(--border-radius);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: var(--transition);
-  margin-top: 1rem;
-  font-weight: bold;
+.formButtons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .question-creator button[type="submit"]:hover {
@@ -113,6 +122,12 @@
   font-size: 1rem;
 }
 
+.previewSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 /* Estilos responsivos */
 @media (max-width: 768px) {
@@ -123,13 +138,6 @@
   .options-grid {
     grid-template-columns: 1fr;
   }
-}
-
-/* Mejoras de accesibilidad */
-.question-creator input:focus,
-.question-creator button:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
 }
 
 /* Indicadores visuales para ayudar a entender la interfaz */

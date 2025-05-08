@@ -17,12 +17,14 @@ const MyRoutes = () => {
     <Router>
       <Header />
       <ToastContainer />
+      <div style={{minHeight: '75vh'}}>
       <Routes>
         <Route path="" element={<Menu />} />
         <Route path="/Create" element={<CreatorSection />} />
         <Route path="/Play" element={<PlaySection />} />
         <Route path="/Play/:trivia_id" element={<TriviaConfig />} />
       </Routes>
+      </div>
       <Footer />
     </Router>
 

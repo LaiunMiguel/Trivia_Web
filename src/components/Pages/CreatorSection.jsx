@@ -3,9 +3,10 @@ import { toast } from "react-toastify";
 import PreguntaCreador from "../Molecules/PreguntaCreador.jsx";
 import TriviaForm from "../Molecules/TriviaForm.jsx"
 import TriviaService from "../../service/TriviaService.js";  
-import "../../assets/css/triviaCreator.css";
+import "../../assets/css/creatorSection.css";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { FaTrash } from "react-icons/fa";
 
 const triviaService = new TriviaService();
 
@@ -106,26 +107,93 @@ const CreatorSection = () => {
     }
   };
 
-  return (
-    <div className="DeckPage">   
-      <div className="DeckCreator">
-        {!isReadyToSave ? (
-          <div className="creator-menu">
-            <h2>Pregunta numero {questionNumber + 1}</h2>
-            <PreguntaCreador onAddQuestion={addQuestion} questionData={questionsData[questionNumber]} />
-            <div className="creator-menu-buttons">
-              <button onClick={handleBeforeQuestion} disabled={questionNumber < 1}>Anterior</button>
-              <button onClick={handleNextQuestion} disabled={questionNumber >= lastQuestionNumber}>Siguiente</button>
-            </div>
+  const handleClickQuestion = (index) => {
+    setQuestionNumber(index);
+    
+  }
 
-            <button onClick={handleFinishQuestions}>Terminar Trivia</button>
+  const handleDeleteQuestion = () => {
+    if (questionNumber === lastQuestionNumber) {
+      toast.error("No puedes eliminar una pregunta no guardada");
+      return;
+    }
+    confirmAlert({
+      title: 'Borrar Pregunta?',
+      message: 'Esta acción no se puede deshacer, ¿deseas continuar?',
+      buttons: [
+        {
+          label: 'Sí',
+          onClick: () => {
+            setQuestionsData((prevQuestions) => {
+              const updatedQuestions = [...prevQuestions];
+              updatedQuestions.splice(questionNumber, 1);
+              return updatedQuestions;
+            });
+            setLastQuestionNumber((prevLastQuestionNumber) => prevLastQuestionNumber - 1);
+            if (questionNumber === lastQuestionNumber) {
+              setQuestionNumber((prevQuestionNumber) => prevQuestionNumber - 1);
+            }
+            toast.success("Pregunta eliminada");
+          }
+
+        },
+        {
+          label: 'No',
+          onClick: () => {}
+        }
+
+
+      ]
+    })
+  }
+
+
+
+  return (
+    <div className="CreationPage">
+    {!isReadyToSave ? (
+      <div className="TriviaCreatorSection">
+      <div className="QuestionsList">
+        {questionsData.map((question, index) => (
+          <div
+            key={index}
+            className={`Question ${index === questionNumber ? 'active' : ''}`}
+            onClick={() => handleClickQuestion(index)}
+          >
+            <p>P {index + 1}</p>
           </div>
-        ) : (
-          <TriviaForm handleBackButton={handleBackButton} handleSave={handleSave} handleShare={handleShare}/>
-        )}
+        ))}
+         <div
+          className={`Question ${questionNumber === lastQuestionNumber ? 'active' : ''}`}
+          onClick={() => handleClickQuestion(lastQuestionNumber)}
+          >
+          <p>P {lastQuestionNumber + 1}</p>
+          </div>
+      </div>
+      <div className="CreatorWindow">
+          <div className="question-header">
+            <h2>Pregunta numero {questionNumber + 1}</h2>
+            <FaTrash
+              className="trash-icon"
+              onClick={() => handleDeleteQuestion()}
+              title="Eliminar pregunta"
+            />
+          </div>
+        <PreguntaCreador onAddQuestion={addQuestion} questionData={questionsData[questionNumber]} />
+      </div>
+      <div className="creator-buttons">
+              <button onClick={handleBeforeQuestion} disabled={questionNumber < 1}>Anterior</button>
+              <button onClick={handleFinishQuestions}>Terminar Trivia</button>
+              <button onClick={handleNextQuestion} disabled={questionNumber >= lastQuestionNumber}>Siguiente</button>
       </div>
     </div>
-  );
+    ) : (
+      <div className="ReadyToSave">
+        <TriviaForm handleBackButton={handleBackButton} handleSave={handleSave} handleShare={handleShare}/>
+      </div>
+    )}
+  </div>  
+  )
 
 };
 

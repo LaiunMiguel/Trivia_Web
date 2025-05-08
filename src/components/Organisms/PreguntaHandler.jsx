@@ -1,7 +1,14 @@
 import PreguntaConOpciones from '../Molecules/PreguntaConOpciones.jsx';
 import Pregunta from '../Molecules/Pregunta.jsx';
 
-const PreguntaHandler = ({ questionData, onAnswerCorrect, onAnswerIncorrect, alredyResponded, isVoiceOn,voiceSelected }) => {
+const PreguntaHandler = ({
+  questionData,
+  onAnswerCorrect = () => {},
+  onAnswerIncorrect = () => {},
+  alredyResponded,
+  isVoiceOn,
+  voiceSelected
+}) => {
 
   const speak = (text) => {
     const utterance = new SpeechSynthesisUtterance(text);

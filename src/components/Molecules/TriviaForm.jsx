@@ -1,5 +1,6 @@
 import React, {useState } from "react";
 import { toast } from "react-toastify";
+import "../../assets/css/triviaForm.css";
 
 
 const TriviaForm = ({handleBackButton,handleSave,handleShare}) => {
@@ -55,11 +56,14 @@ const TriviaForm = ({handleBackButton,handleSave,handleShare}) => {
       value={description}
       onChange={(e) => setDescription(e.target.value)}
     />
+    <div className="button-container">
+
     <button onClick={handleBackButton}  disabled={isSaved}>Volver Atras</button>
     <button onClick={handleSavaButton}  disabled={isSaved}>Guardar Trivia</button>
     <button onClick={handleShareButton} disabled={!isReadyToShare}>
       Subir Trivia
     </button>
+    </div>
   </div>
   )
 

@@ -1,0 +1,155 @@
+.CreationPage {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.TriviaCreatorSection {
+  display: grid;
+  grid-template-areas:
+    "windowSection questionsList"
+    "navButtons navButtons";
+  gap: 1.5rem;
+  width: fit-content;
+  height: fit-content;
+  padding: 1.2rem;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.CreatorWindow {
+  background-color: white;
+  min-width: 600px;
+  max-width: 1200px;
+  grid-area: windowSection;
+
+}
+
+.QuestionsList {
+  grid-area: questionsList;
+  min-width: 60px;
+  max-height: 400px;
+  display: block;
+  overflow-y: auto;
+}
+
+.Question {
+  cursor: pointer;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.Question:hover {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+
+}
+
+.Question.active {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.creator-buttons {
+  grid-area: navButtons;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+}
+
+.creator-buttons  button {
+  font-size: 1.1rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0;
+}
+
+.creator-buttons button:first-child,
+.creator-buttons button:last-child {
+  background-color: #052d9c;
+}
+
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.trash-icon {
+  color: #c00;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.trash-icon:hover {
+  transform: scale(1.2);
+  color: #900;
+}
+
+
+@media (max-width: 768px) {
+  .TriviaCreatorSection {
+    padding: clamp(0.5rem, 1vw, 1.25rem);
+  }
+
+  .creator-buttons  button {
+    padding: 1rem 1rem;
+    font-size: 1rem;
+  }
+
+  .CreatorWindow {
+    min-width: 100%;
+    width: 80vw;
+  }
+
+ .QuestionsList {
+    min-width: 40px;
+    max-height: 400px;
+  }
+
+  .Question {
+      width: 60px;
+  }
+
+}
+
+@media (max-width: 350px) {
+
+  .TriviaCreatorSection {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+  
+  .creator-buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .creator-buttons button:nth-child(2) {
+    order: -1;
+  }
+
+
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.TriviaCreatorSection > div {
+  animation: fadeIn 0.5s cubic-bezier(.4,0,.2,1);
+}

@@ -1,6 +1,7 @@
 import "../../assets/css/preguntaCreador.css";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import PreguntaHandler from "../Organisms/PreguntaHandler";
 
 const PreguntaCreador = ({ onAddQuestion, questionData }) => {
   const [questionText, setQuestionText] = useState("");
@@ -9,6 +10,7 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
   const [containImage, setcontainImage] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+  const [preview, setPreview] = useState(false);
 
   // Maneja la actualización de la pregunta
   const handleQuestionChange = (e) => {
@@ -35,7 +37,18 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
     
   }, [questionData])
 
-  // Maneja la actualización de las opciones
+  const handlePreview = () => {
+    setPreview(preview => !preview);
+  }
+
+  const newQuestion = {
+    q: questionText,
+    r: correctAnswer,
+   ...(isMultipleChoice && { o: options }),
+   ...(imageUrl && { img: imageUrl }),
+  };
+
+
   const handleResponseChange = (index, value) => {
     if (index === 0) {
       setCorrectAnswer(value);
@@ -74,16 +87,16 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
       return;
     }
 
-    // Validar si la URL es una imagen válida
+    const newQuestion = {
+      q: questionText,
+      r: correctAnswer,
+      ...(isMultipleChoice && { o: options }),
+      ...(imageUrl && { img: imageUrl }),
+    };
+
     if (containImage && imageUrl) {
       const img = new window.Image();
       img.onload = () => {
-        const newQuestion = {
-          q: questionText,
-          r: correctAnswer,
-          ...(isMultipleChoice && { o: options }),
-          ...(imageUrl && { img: imageUrl }),
-        };
         onAddQuestion(newQuestion);
         setQuestionText("");
         setOptions(["", "", "", ""]);
@@ -98,15 +111,7 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
       return; // Salir para esperar la validación asíncrona
     }
 
-    const newQuestion = {
-      q: questionText,
-      r: correctAnswer,
-      ...(isMultipleChoice && { o: options }),
-      ...(imageUrl && { img: imageUrl }),
-    };
-
     onAddQuestion(newQuestion);
-
     setQuestionText("");
     setOptions(["", "", "", ""]);
     setCorrectAnswer("");
@@ -116,6 +121,7 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
 
   return (
     <div className="question-creator">
+      {!preview ? (
       <form onSubmit={handleSubmit}>
         <div>
           <label>Pregunta:</label>
@@ -129,9 +135,9 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
         </div>
         
         <div className="multipleBox">
-          <label htmlFor="multiple-choice">¿Tiene una imagen?</label>
+          <label htmlFor="contains-image">¿Tiene una imagen?</label>
           <input
-            id="multiple-choice"
+            id="contains-image"
             type="checkbox"
             checked={containImage}
             onChange={handleToggleContainImage}
@@ -197,13 +203,23 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
             />
           </div>
         )}
-
+        <div className="formButtons">
+        <button onClick={handlePreview}>Preview</button>
         <button type="submit">
           {questionData && questionData.q ? "Editar Pregunta" : "Agregar Pregunta"}
         </button>
+        </div>
       </form>
+      ) : (
+        <div className="previewSection">
+        <PreguntaHandler questionData={newQuestion} />
+        <button onClick={handlePreview}>Preview</button>
+        </div>
+      )}
     </div>
   );
 };
 
 export default PreguntaCreador;
+
+
