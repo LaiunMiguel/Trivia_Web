@@ -49,6 +49,19 @@ class StorageService {
 
     }
 
+    saveTempCreation(questions) {
+        localStorage.setItem("temp_creation", JSON.stringify(questions));
+    }
+
+    loadTempCreation() {
+        const tempCreation = JSON.parse(localStorage.getItem("temp_creation"));
+        return tempCreation;
+    }
+
+    deleteTempCreation() {
+        localStorage.removeItem("temp_creation");
+    }
+
     loadAllTrivias() {
         const triviasData = JSON.parse(localStorage.getItem("Trivia_decks")) || [];
         const triviasLocales = JSON.parse(localStorage.getItem("local_trivia_decks")) || [];

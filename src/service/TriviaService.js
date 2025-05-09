@@ -92,6 +92,18 @@ class TriviaService {
         return storageService.saveTrivia(trivia);
     }
 
+    saveTempCreation(questions){
+        storageService.saveTempCreation(questions);
+    }
+
+    loadTempCreation(){
+        const questions = storageService.loadTempCreation();
+        return questions;
+    }
+
+    deleteTempCreation(){
+        storageService.deleteTempCreation();
+    }
 
     async importTriviasNuevas() {
         const trivias = await this.importFromGoogle();

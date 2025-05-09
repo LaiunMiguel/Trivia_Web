@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import PreguntaCreador from "../Molecules/PreguntaCreador.jsx";
 import TriviaForm from "../Molecules/TriviaForm.jsx"
@@ -17,6 +17,25 @@ const CreatorSection = () => {
   const [isReadyToSave, setIsReadyToSave] = useState(false);
   const [selectedTrivia, setSelectedTrivia] = useState(null);
 
+  useEffect(() => {
+    loadTempTrivias();
+  }, []);
+
+  useEffect(() => {
+    if (questionsData.length > 0) {
+      triviaService.saveTempCreation(questionsData);
+    }
+  }, [questionsData]);
+
+  const loadTempTrivias = () => {
+    const tempTrivias = triviaService.loadTempCreation();
+    if (tempTrivias) {
+      setQuestionNumber(tempTrivias.length);
+      setLastQuestionNumber(tempTrivias.length);
+      setQuestionsData(tempTrivias);
+    }
+    
+  }
   const addQuestion = (newQuestion) => {
     
     if (questionNumber < lastQuestionNumber){
@@ -33,6 +52,8 @@ const CreatorSection = () => {
     setQuestionNumber((prevQuestionNumber) => prevQuestionNumber + 1);
   };
 
+
+
   // Nueva función para reroceder una pregunta
  
   const handleSave = (formData) => {
@@ -47,6 +68,7 @@ const CreatorSection = () => {
       };
       const triviaSaved = triviaService.saveTrivia(trivia);
       setSelectedTrivia(triviaSaved);
+      triviaService.deleteTempCreation();
       toast.success("Trivia guardada exitosamente");
     } 
     catch (error) {
