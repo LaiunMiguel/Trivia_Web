@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import SearchTrivia from "./SearchTrivia";
 import "../assets/css/playMenu.css";
@@ -13,7 +12,6 @@ const PlayMenu = ({
   handleTriviasResueltas,
   handleTriviasNoResueltas,
   handleImportNewTrivias,
-  handleImportAllTrivias,
   handleSearchTrivia,
 }) => {
   const [sectionsOpen, setSectionsOpen] = useState({
@@ -53,26 +51,11 @@ const PlayMenu = ({
     };
   }, []);
 
-  const confirmImport = () => {
-    confirmAlert({
-      title: 'Confirmar importar',
-      message: 'Importar todas las trivias traera las eliminadas y reiniciara las trivias completas. ¿Estás seguro?',
-      buttons: [
-        {
-          label: 'Sí',
-          onClick: () => handleImportAllTrivias()
-        },
-        {
-          label: 'No',
-          onClick: () => {} 
-        }
-      ]
-    });
-  };
-
   const handleSearch = (filters) => {
     handleSearchTrivia(filters);
   };
+
+
 
   return (
     <div className="PlayMenu" ref={menuRef}>
@@ -92,8 +75,8 @@ const PlayMenu = ({
         <h3 onClick={() => toggleSection('Jugar')}>Jugar</h3>
         {sectionsOpen.Jugar && (
           <div className="menu-section-content">
-            <button onClick={handleRandomTrivia}>Jugar Trivia Aleatoria de las filtradas</button>
-            <button onClick={handleRandomTriviaTotal}>Jugar Trivia Aleatoria</button>
+            <button onClick={handleRandomTrivia} aria-label="Jugar trivia aleatoria de las filtradas">Jugar Trivia Aleatoria de las filtradas</button>
+            <button onClick={handleRandomTriviaTotal} aria-label="Jugar trivia aleatoria">Jugar Trivia Aleatoria</button>
           </div>
         )}
       </section>
@@ -102,8 +85,7 @@ const PlayMenu = ({
         <h3 onClick={() => toggleSection('Importar')}>Importar trivias</h3>
         {sectionsOpen.Importar && (
           <div className="menu-section-content">
-            <button onClick={handleImportNewTrivias}>Importar trivias nuevas</button>
-            <button onClick={confirmImport}>Importar todas las trivias</button>
+            <button onClick={handleImportNewTrivias} aria-label="Importar trivias nuevas">Importar trivias nuevas</button>
           </div>
         )}
       </section>
@@ -113,7 +95,7 @@ const PlayMenu = ({
         {sectionsOpen.Navegacion && (
           <div className="menu-section-content">
             <SearchTrivia onSearch={handleSearch} />
-            <button onClick={handleMenuButton}>Volver al Menu</button>
+            <button onClick={handleMenuButton} aria-label="Volver al menú">Volver al Menu</button>
           </div>
         )}
       </section>

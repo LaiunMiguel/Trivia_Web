@@ -3,7 +3,14 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import "../assets/css/triviaDetails.css";
 
-const TriviaDetails = ({triviaData, handleClick, handleShare, handleDelete}) => {
+const TriviaDetails = ({
+  triviaData,
+  handleClick = () => {},
+  handleShare = () => {},
+  handleDelete = () => {},
+  isImported = false,
+  isIgnored = false
+}) => {
 
     const [isSharing, setIsSharing] = useState(false);
 
@@ -23,6 +30,24 @@ const TriviaDetails = ({triviaData, handleClick, handleShare, handleDelete}) => 
           ]
         });
     };
+
+    const handleIgnoreButton = (trivia) => {
+      confirmAlert({
+        title: '¿Estás seguro?',
+        message: 'Quieres que esta trivia no te aparezca más?',
+        buttons: [
+          {
+            label: 'Sí',
+            onClick: () => handleDelete(trivia)
+          },
+          {
+            label: 'No',
+            onClick: () => {}
+          }
+        ]
+      });
+        
+    }
 
     
 
@@ -46,16 +71,21 @@ const TriviaDetails = ({triviaData, handleClick, handleShare, handleDelete}) => 
             <p><strong>Autor:</strong> {triviaData.author || "Desconocido"}</p>
             <p><strong>Preguntas:</strong> {triviaData.questions?.length || 0}</p>
             </div>
-            <p className="descripcion" ><strong>Descripción:</strong> {triviaData.description || "Sin descripción"}</p>
-            
+            <p className="descripcion" ><strong>Descripción:</strong> {triviaData.description || "Sin descripción"}</p>           
           </div>
+          {!isImported ? (
           <div className="triviaDetailsButtons">
             <button onClick={() => handleClick(triviaData)} aria-label="Jugar trivia">Jugar</button>
             {triviaData.canBeExported ? (
-              <button onClick={() => handleSharePersonal()} disabled={isSharing} aria-label="Compartir trivia">Compartir</button>
+            <button onClick={() => handleSharePersonal()} disabled={isSharing} aria-label="Compartir trivia">Compartir</button>
             ) : null}
             <button onClick={() => handleDeleteButton(triviaData)} aria-label="Borrar trivia">Borrar</button>
+          </div> ) : (
+          <div className="triviaDetailsButtons">
+            <button onClick={() => handleShare(triviaData)} aria-label="Importar Trivia">Importar Trivia</button>
+            <button onClick={() => handleIgnoreButton(triviaData)} disabled={isIgnored} aria-label="Ignorar Trivia">Ignorar Trivia</button>
           </div>
+          )}
       </div>
     )
 }

@@ -62,6 +62,13 @@ class StorageService {
         localStorage.removeItem("temp_creation");
     }
 
+    ignoreTrivia(triviaId) {
+        const IDs = JSON.parse(localStorage.getItem("Trivias_IDs")) || [];
+        IDs.push(triviaId);
+        localStorage.setItem("Trivias_IDs", JSON.stringify(IDs));
+        
+    }
+
     loadAllTrivias() {
         const triviasData = JSON.parse(localStorage.getItem("Trivia_decks")) || [];
         const triviasLocales = JSON.parse(localStorage.getItem("local_trivia_decks")) || [];
@@ -144,6 +151,12 @@ class StorageService {
     getIDs() {
         const IDs = JSON.parse(localStorage.getItem("Trivias_IDs")) || [];
         return IDs;
+    }
+
+    getSavedIDs() {
+        const triviasData = JSON.parse(localStorage.getItem("Trivia_decks")) || [];
+        const savedIDs = triviasData.map((trivia) => trivia.id);
+        return savedIDs;
     }
 
     reorderTrivias() {

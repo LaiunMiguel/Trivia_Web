@@ -1,0 +1,105 @@
+.trivia-importSection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+}
+
+.trivia-importSection span{
+    color: white;
+    font-size: 1.2rem;
+    justify-self: center;
+    align-self: center;
+   
+}
+
+.trivia-importSection h1{
+    align-self:center;
+    color: white;
+}
+
+.trivia-importSection h2{
+    align-self:center;
+    color: white;
+}
+
+.trivia-list button:first-child {
+    background: #26a69a;
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 8px rgba(38, 166, 154, 0.12);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.trivia-list button:first-child:hover {
+    background: #00796b;
+    transform: scale(1.05);
+}
+
+.trivia-list button:last-child {
+    background: #ff7043;
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 8px rgba(255, 112, 67, 0.12);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.trivia-list button:last-child:hover {
+    background: #c63f17;
+    transform: scale(1.05);
+}
+
+
+.trivia-importSection-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(8, 16, 49, 0.95);
+    border-radius: 16px;
+    padding: 32px 16px;
+    box-shadow: 0 4px 24px rgba(8,16,49,0.15);
+    margin: 24px auto;
+    max-width: 400px;
+}
+
+.trivia-importSection-empty h1,
+.trivia-importSection-empty h2 {
+    color: #e3eafc;
+    text-align: center;
+    margin: 8px 0;
+}
+
+.trivia-importSection-empty button {
+    width: 80%;
+    margin: 10px 0;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.trivia-importSection-empty button:last-of-type {
+    background: #26a69a;
+    color: #fff;
+}
+
+.trivia-importSection-empty button:last-of-type:hover {
+    background: #00796b;
+    transform: scale(1.05);
+}
+
+.trivia-importSection-empty button:first-of-type {
+    background: #1976d2;
+    color: #fff;
+}
+
+.trivia-importSection-empty button:first-of-type:hover {
+    background: #0d47a1;
+    transform: scale(1.05);
+}
+

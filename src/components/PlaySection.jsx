@@ -13,7 +13,7 @@ const PlaySection = ({ handleMenuButton }) => {
   // --- State ---
   const [triviasData, setTriviasData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 24;
+  const itemsPerPage = 20;
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -79,29 +79,9 @@ const PlaySection = ({ handleMenuButton }) => {
   };
   
   const handleImportNewTrivias = async () =>  {
-      try {
-        const cantDeTrivias = await triviaService.importTriviasNuevas();
-        toast.success("Se importaron " + cantDeTrivias + " trivias nuevas!!");
-        handleTodasMisTrivias();
-      }
-      catch (error) {
-        toast.error(error.message);
-      }
+    navigate("/Import");
     };
-    
-    const handleImportAllTrivias = async () => {
-      setIsLoading(true);
-      try {
-        await triviaService.importAllTrivias();
-        handleTodasMisTrivias();
-        toast.success("Todas las trivias importadas correctamente");
-      } catch (error) {
-        toast.error(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-  
+
   const handleDelete = (trivia) => {
     triviaService.deleteTrivia(trivia); 
     handleTodasMisTrivias();
@@ -153,7 +133,6 @@ const PlaySection = ({ handleMenuButton }) => {
             handleTriviasNoResueltas={handleTriviasNoResueltas}
             handleTodasMisTrivias={handleTodasMisTrivias}
             handleImportNewTrivias={handleImportNewTrivias}
-            handleImportAllTrivias={handleImportAllTrivias}
             handleSearchTrivia={handleSearchTrivia}
           />
         

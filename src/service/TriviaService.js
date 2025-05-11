@@ -80,6 +80,11 @@ class TriviaService {
         storageService.removeFromTrivias(trivia);
     }
 
+    ignoreTrivia(trivia){
+        storageService.ignoreTrivia(trivia);
+    }
+
+
 
     markAsResolved(trivia,score) {
         if (!trivia.score || trivia.score < score){
@@ -90,6 +95,14 @@ class TriviaService {
 
     saveTrivia(trivia){
         return storageService.saveTrivia(trivia);
+    }
+
+    saveTriviaImported(trivia){
+        storageService.saveImportTrivia(trivia);
+    }
+
+    saveNewTrivias(trivias){
+        storageService.saveNewTrivias(trivias);
     }
 
     saveTempCreation(questions){
@@ -113,16 +126,19 @@ class TriviaService {
         if (nuevasTrivias.length === 0) {
             throw new Error("No hay nuevas trivias para importar"); 
         }
-        storageService.saveNewTrivias(nuevasTrivias);
-        return nuevasTrivias.length
-
+        return nuevasTrivias
     }
-
+    
     async importAllTrivias() {
         const trivias = await this.importFromGoogle();
-        storageService.saveTrivias(trivias);
-
         return trivias;
+    }
+
+    async importIgnoredAndDeletedTrivias() {
+        const trivias = await this.importFromGoogle();
+        const savedID = storageService.getSavedIDs();
+        const ignoredTrivias = trivias.filter((trivia) => !savedID.includes(trivia.id.toString()));
+        return ignoredTrivias;
     }
 
     async importOnly(trivia_id) {
