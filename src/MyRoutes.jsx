@@ -1,13 +1,13 @@
 import React from 'react';
-import Menu from './components/Pages/Menu.jsx';
-import CreatorSection from './components/Pages/CreatorSection.jsx';
-import Header from './components/Organisms/Header.jsx';
-import Footer from './components/Organisms/Footer.jsx';
 import { ToastContainer } from 'react-toastify';
 import { HashRouter as Router, Routes, Route } from "react-router";
 import 'react-toastify/dist/ReactToastify.css';
-import PlaySection from './components/Pages/PlaySection.jsx';
-import TriviaConfig from './components/Organisms/TriviaConfig.jsx';
+import Menu from './components/MenuSection.jsx';
+import CreatorSection from './components/CreatorSection.jsx';
+import Header from './components/Header.jsx';
+import Footer from './components/Footer.jsx';
+import PlaySection from './components/PlaySection.jsx';
+import TriviaConfig from './components/TriviaConfig.jsx';
 
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../assets/css/header.css';
+import '../assets/css/header.css';
 import { useNavigate } from 'react-router';
 
 const logoUrl = process.env.PUBLIC_URL + '/logo.png';
@@ -9,7 +9,7 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="header-content" onClick={() => navigate('')} style={{cursor:"pointer"}}> 
+      <div className="header-content" onClick={() => navigate('/')} style={{cursor:"pointer"}} aria-label="Volver al inicio"> 
         <div className="logo">
           <img src={logoUrl} alt="Trivia Web Logo" className="logo-image" />
         </div>

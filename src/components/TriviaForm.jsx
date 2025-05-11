@@ -1,6 +1,6 @@
 import React, {useState } from "react";
 import { toast } from "react-toastify";
-import "../../assets/css/triviaForm.css";
+import "../assets/css/triviaForm.css";
 
 
 const TriviaForm = ({handleBackButton,handleSave,handleShare}) => {
@@ -12,7 +12,7 @@ const TriviaForm = ({handleBackButton,handleSave,handleShare}) => {
   const [isSaved, setIsSaved] = useState(false);
 
 
-  const handleSavaButton = () => {
+  const handleSaveButton = () => {
 
     if (name.trim() === "") {
       toast.error("El nombre de la trivia no puede estar vacío");
@@ -59,7 +59,7 @@ const TriviaForm = ({handleBackButton,handleSave,handleShare}) => {
     <div className="button-container">
 
     <button onClick={handleBackButton}  disabled={isSaved}>Volver Atras</button>
-    <button onClick={handleSavaButton}  disabled={isSaved}>Guardar Trivia</button>
+    <button onClick={handleSaveButton}  disabled={isSaved}>Guardar Trivia</button>
     <button onClick={handleShareButton} disabled={!isReadyToShare}>
       Subir Trivia
     </button>

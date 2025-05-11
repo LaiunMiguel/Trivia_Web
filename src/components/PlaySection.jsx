@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import LoadingMenu from "../Molecules/LoadingMenu.jsx";
-import TriviaDetails from "../Molecules/TriviaDetails.jsx";
-import TriviaService from "../../service/TriviaService.js";
-import PlayMenu from "../Organisms/PlayMenu.jsx";  
-import "../../assets/css/playSection.css";
-import { toast } from "react-toastify";
 import { useNavigate } from 'react-router';
+import { toast } from "react-toastify";
+import TriviaService from "../service/TriviaService.js";
+import LoadingMenu from "./LoadingMenu.jsx";
+import TriviaDetails from "./TriviaDetails.jsx";
+import PlayMenu from "./PlayMenu.jsx";  
+import "../assets/css/playSection.css";
 
 
 
@@ -58,7 +58,7 @@ const PlaySection = ({ handleMenuButton }) => {
 
 
   const handleSearchTrivia = async (searchTerm) => {
-    setIsLoading((prev => !prev));
+    setIsLoading(true);
     try {
       await new Promise(resolve => setTimeout(resolve, 1500)); 
       const filteredTrivias = triviaService.searchTrivias(searchTerm);
@@ -67,7 +67,7 @@ const PlaySection = ({ handleMenuButton }) => {
       }
       setTriviasData(filteredTrivias);
     } finally {
-      setIsLoading((prev => !prev));
+      setIsLoading(false);
     }
   }
 
@@ -80,8 +80,8 @@ const PlaySection = ({ handleMenuButton }) => {
   
   const handleImportNewTrivias = async () =>  {
       try {
-        const CantDeTrivas = await triviaService.importTriviasNuevas();
-        toast.success("Se importaron " + CantDeTrivas + " trivias nuevas!!");
+        const cantDeTrivias = await triviaService.importTriviasNuevas();
+        toast.success("Se importaron " + cantDeTrivias + " trivias nuevas!!");
         handleTodasMisTrivias();
       }
       catch (error) {
@@ -90,7 +90,7 @@ const PlaySection = ({ handleMenuButton }) => {
     };
     
     const handleImportAllTrivias = async () => {
-      setIsLoading(prev => !prev);
+      setIsLoading(true);
       try {
         await triviaService.importAllTrivias();
         handleTodasMisTrivias();
@@ -98,7 +98,7 @@ const PlaySection = ({ handleMenuButton }) => {
       } catch (error) {
         toast.error(error.message);
       } finally {
-        setIsLoading(prev => !prev);
+        setIsLoading(false);
       }
     };
   
@@ -163,9 +163,9 @@ const PlaySection = ({ handleMenuButton }) => {
             </div>
           ) : (
             <div className="trivia-list">
-              {pageTrivias.map((trivia,index) => (
+              {pageTrivias.map((trivia) => (
                 <TriviaDetails
-                  key={index}
+                  key={trivia.id}
                   triviaData={trivia}
                   handleClick={handleTriviaSelection}
                   handleShare={handleExport}
@@ -175,9 +175,9 @@ const PlaySection = ({ handleMenuButton }) => {
             </div>
             )}
           <div className="pagination">
-            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>←</button>
+            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} aria-label="Anterior Pagina">←</button>
             <span>Página {currentPage}</span>
-            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage * itemsPerPage >= triviasData.length}>→</button>
+            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage * itemsPerPage >= triviasData.length} aria-label="Siguiente Pagina">→</button>
           </div>
         </>
       )}

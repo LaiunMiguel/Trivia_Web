@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../assets/css/footer.css';
+import '../assets/css/footer.css';
 
 const Footer = () => {
   return (
@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section">
           <h2 className="footer-title">Trivia Web</h2>
-          <p>© 2025 - Laiun Miguel</p>
+          <p>2025 - Laiun Miguel</p>
         </div>
 
         <div className="footer-section">

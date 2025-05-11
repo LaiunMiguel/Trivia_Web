@@ -59,7 +59,7 @@
   text-decoration: underline;
 }
 
-/* Estilos responsivos */
+
 @media (max-width: 768px) {
   .footer {
     padding: 1.2rem 1.5rem;
@@ -79,7 +79,7 @@
   }
 }
 
-/* Animación para el footer */
+
 @keyframes slideUp {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }

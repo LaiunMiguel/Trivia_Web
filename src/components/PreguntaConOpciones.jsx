@@ -1,34 +1,36 @@
 import React, { useState, useEffect} from 'react';
-import '../../assets/css/preguntaConOpciones.css';
+import '../assets/css/preguntaConOpciones.css';
 
-const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,alredyResponded,isVoiceOn,handleSpeak }) => {
+const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,alreadyResponded,isVoiceOn,handleSpeak }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [shuffledOptions, setShuffledOptions] = useState([]);
-  const [ampliada, setAmpliada] = useState(false);
+  const [zoom, setZoom] = useState(false);
 
 
   useEffect(() => {
-    const options = [...questionData.o];
-    for (let i = options.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [options[i], options[j]] = [options[j], options[i]];
+    const handleSpeakQuestion = (options) => {
+      if (isVoiceOn) {
+        handleSpeak(options);     
+      }
     }
-
-    if (alredyResponded) {
-      setSelectedOption(questionData.r);
-    }
-    else{
-      setSelectedOption(null);
-    }
+    const options = shuffleArray(questionData.o);
     setShuffledOptions(options);
+    handleSpeakQuestion(options);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionData]);
 
-  useEffect(() => {
 
-    if (isVoiceOn) {
-      handleSpeak(shuffledOptions);
+  useEffect(() => {
+    if (alreadyResponded && selectedOption === null) {
+      setShuffledOptions(questionData.o);
+      setSelectedOption(questionData.r);
     }
-  }, [shuffledOptions]);
+    else if (!alreadyResponded){
+      setSelectedOption(null);
+    }
+  
+  }, [alreadyResponded, questionData, selectedOption]);
+
 
 
   const handleOptionClick = (option) => {
@@ -47,12 +49,12 @@ const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,
       {questionData.img && 
         <div className="imagen-container" onClick={(e) => {
           e.stopPropagation();
-          setAmpliada(!ampliada);
+          setZoom(!zoom);
         }}>
           <img 
             src={questionData.img} 
             alt="Imagen de la pregunta" 
-            className={ampliada ? "ampliada" : ""}
+            className={zoom ? "zoomed" : ""}
           />
         </div>}
       <div className='PreguntaOpciones'>
@@ -62,6 +64,7 @@ const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,
             key={index}
             onClick={() => handleOptionClick(option)}
             disabled={selectedOption !== null}
+            aria-label={option}
           >
             {option}
           </button>
@@ -72,3 +75,12 @@ const PreguntaConOpciones = ({ questionData, onAnswerCorrect, onAnswerIncorrect,
 };
 
 export default PreguntaConOpciones;
+
+function shuffleArray(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}

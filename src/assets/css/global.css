@@ -1,27 +1,27 @@
 :root {
 
     /* Primary Theme */
-    --primary-color: #020409;         /* A vibrant blue for main actions */
-    --primary-hover: #364fc7;         /* A slightly darker blue for hover states */
-    --background-color: #08223d;      /* Very light gray for backgrounds */
-    --text-color: #222;               /* Almost black for main text */
+    --primary-color: #020409;
+    --primary-hover: #364fc7;    
+    --background-color: #08223d; 
+    --text-color: #222;    
     --border-radius: 12px;
-    --shadow: 0 4px 12px rgba(67, 97, 238, 0.08); /* Subtle blue shadow */
-    --disabled-color: #e0e0e0;        /* Light gray for disabled backgrounds */
-    --disabled-text: #888;            /* Medium gray for disabled text */
+    --shadow: 0 4px 12px rgba(67, 97, 238, 0.08); 
+    --disabled-color: #e0e0e0;
+    --disabled-text: #888; 
     --transition: all 0.3s cubic-bezier(.4,0,.2,1);
-    --text-hover: #3b55d9;            /* Slightly darker blue for text hover */
+    --text-hover: #3b55d9; 
 
     /* Navbar */
-    --navbar-color: #ffffff;          /* White navbar for clarity */
+    --navbar-color: #ffffff;
 
     /* Footer */
-    --footer-color: #000000;          /* Deep blue-gray for footer */
-    --footer-text-color: #f8f9fa;     /* Light text for footer */
+    --footer-color: #000000;
+    --footer-text-color: #f8f9fa;
 
     /* Trivia Creator */
-    --correct-color: #2ecc71;         /* Green for correct answers */
-    --incorrect-color: #e74c3c;       /* Red for incorrect answers */
+    --correct-color: #2ecc71;
+    --incorrect-color: #e74c3c;
     --background-color-creator: #f8f9fa;
 
     /* Trivia */

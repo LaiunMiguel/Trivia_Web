@@ -1,7 +1,7 @@
-import "../../assets/css/preguntaCreador.css";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import PreguntaHandler from "../Organisms/PreguntaHandler";
+import PreguntaHandler from "./PreguntaHandler";
+import "../assets/css/preguntaCreador.css";
 
 const PreguntaCreador = ({ onAddQuestion, questionData }) => {
   const [questionText, setQuestionText] = useState("");
@@ -205,8 +205,8 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
         </div>
 
         <div className="formButtons">
-        <button onClick={handlePreview}>Preview</button>
-        <button type="submit">
+        <button onClick={handlePreview} aria-label="Vista previa de la pregunta">Preview</button>
+        <button type="submit" aria-label={questionData && questionData.q ? "Editar pregunta" : "Agregar pregunta"}>
           {questionData && questionData.q ? "Editar Pregunta" : "Agregar Pregunta"}
         </button>
         </div>
@@ -214,7 +214,7 @@ const PreguntaCreador = ({ onAddQuestion, questionData }) => {
       ) : (
         <div className="previewSection">
         <PreguntaHandler questionData={newQuestion} />
-        <button onClick={handlePreview}>Preview</button>
+        <button onClick={handlePreview} aria-label="Volver a edición">Preview</button>
         </div>
       )}
     </div>

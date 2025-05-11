@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import "../../assets/css/triviaDetails.css";
+import "../assets/css/triviaDetails.css";
 
 const TriviaDetails = ({triviaData, handleClick, handleShare, handleDelete}) => {
 
@@ -46,15 +46,15 @@ const TriviaDetails = ({triviaData, handleClick, handleShare, handleDelete}) => 
             <p><strong>Autor:</strong> {triviaData.author || "Desconocido"}</p>
             <p><strong>Preguntas:</strong> {triviaData.questions?.length || 0}</p>
             </div>
-            <p className="descripcion" ><strong>Decripcion:</strong> {triviaData.description || "Sin decripcion"}</p>
+            <p className="descripcion" ><strong>Descripción:</strong> {triviaData.description || "Sin descripción"}</p>
             
           </div>
           <div className="triviaDetailsButtons">
-            <button onClick={() => handleClick(triviaData)}>Jugar</button>
+            <button onClick={() => handleClick(triviaData)} aria-label="Jugar trivia">Jugar</button>
             {triviaData.canBeExported ? (
-              <button onClick={() => handleSharePersonal()} disabled={isSharing}>Compartir</button>
+              <button onClick={() => handleSharePersonal()} disabled={isSharing} aria-label="Compartir trivia">Compartir</button>
             ) : null}
-            <button onClick={() => handleDeleteButton(triviaData)}>Borrar</button>
+            <button onClick={() => handleDeleteButton(triviaData)} aria-label="Borrar trivia">Borrar</button>
           </div>
       </div>
     )

@@ -162,11 +162,11 @@ class TriviaService {
     async exportTrivia(trivia) {
         const trivias = await this.importFromGoogle();
         const lastID = parseInt(trivias[trivias.length - 1].id, 10); // Convierte el string a número entero
-        this.exportTriviaFromGoogle(trivia);
+        this.sendTriviaToGoogleForm(trivia);
         storageService.triviaExported(trivia, (lastID + 1).toString());
     }
 
-    async exportTriviaFromGoogle (trivia){
+    async sendTriviaToGoogleForm(trivia){
 
             const code = compressCode(trivia.questions);
             const formData = new FormData();

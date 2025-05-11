@@ -50,7 +50,7 @@
   transform: rotateY(180deg);
 }
 
-.answer {
+.preguntaTarjeta__answer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,7 +68,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.honestMan {
+.preguntaTarjeta__Buttons {
   display: flex;
   gap: clamp(0.5rem, 2vw, 1rem);
   justify-content: center;
@@ -77,29 +77,29 @@
 }
 
 
-.honestMan button {
+.preguntaTarjeta__Buttons button {
   padding: clamp(0.5rem, 1.5vw, 0.8rem) clamp(1rem, 3vw, 2rem);
   font-size: clamp(0.9rem, 2vw, 1.1rem);
   border-radius: clamp(4px, 1vw, 8px);
   width: clamp(100px, 30vw, 200px);
 }
 
-.honestMan button:first-child {
+.preguntaTarjeta__Buttons button:first-child {
   background: #43a047;
   color: #fff;
 }
 
-.honestMan button:first-child:hover {
+.preguntaTarjeta__Buttons button:first-child:hover {
   background: #388e3c;
   transform: scale(1.05);
 }
 
-.honestMan button:last-child {
+.preguntaTarjeta__Buttons button:last-child {
   background: #e53935;
   color: #fff;
 }
 
-.honestMan button:last-child:hover {
+.preguntaTarjeta__Buttons button:last-child:hover {
   background: #b71c1c;
   transform: scale(1.05);
 }
@@ -118,7 +118,7 @@ button:disabled:hover {
   box-shadow: none;
 }
 
-.honestMan button::before {
+.preguntaTarjeta__Buttons button::before {
   content: attr(data-icon);
   font-size: 1.2rem;
 

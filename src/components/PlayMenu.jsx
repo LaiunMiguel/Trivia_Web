@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../../assets/css/playMenu.css";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import SearchTrivia from "../Molecules/SearchTrivia";
+import SearchTrivia from "./SearchTrivia";
+import "../assets/css/playMenu.css";
 
 const PlayMenu = ({
   handleMenuButton,
@@ -64,7 +64,7 @@ const PlayMenu = ({
         },
         {
           label: 'No',
-          onClick: () => {} // o cerrar modal sin acción
+          onClick: () => {} 
         }
       ]
     });
@@ -80,10 +80,10 @@ const PlayMenu = ({
         <h3 onClick={() => toggleSection('MisTrivias')}><span></span>Mis Trivias</h3>
         {sectionsOpen.MisTrivias && (
           <div className="menu-section-content">
-            <button onClick={handleTodasMisTrivias}>Ver Todas las Trivias</button>
-            <button onClick={handleTriviasResueltas}>Ver Trivias Completadas</button>
-            <button onClick={handleTriviasNoResueltas}>Ver Trivias Pendientes</button>
-            <button onClick={handleLocalTrivias}>Mis trivias sin subirr</button>
+            <button onClick={handleTodasMisTrivias} aria-label="Ver todas las trivias">Ver Todas las Trivias</button>
+            <button onClick={handleTriviasResueltas} aria-label="Ver trivias completadas">Ver Trivias Completadas</button>
+            <button onClick={handleTriviasNoResueltas} aria-label="Ver trivias pendientes">Ver Trivias Pendientes</button>
+            <button onClick={handleLocalTrivias} aria-label="Ver trivias locales">Mis trivias sin subir</button>
           </div>
         )}
       </section>

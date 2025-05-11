@@ -1,12 +1,12 @@
 import React, {useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import PreguntaCreador from "../Molecules/PreguntaCreador.jsx";
-import TriviaForm from "../Molecules/TriviaForm.jsx"
-import TriviaService from "../../service/TriviaService.js";  
-import "../../assets/css/creatorSection.css";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { FaTrash } from "react-icons/fa";
+import PreguntaCreador from "./PreguntaCreador.jsx";
+import TriviaForm from "./TriviaForm.jsx"
+import TriviaService from "../service/TriviaService.js";  
+import "../assets/css/creatorSection.css";
 
 const triviaService = new TriviaService();
 
@@ -86,7 +86,6 @@ const CreatorSection = () => {
   };
 
   const handleShare = async () => {
-    console.log(selectedTrivia)
     try {
       await triviaService.exportTrivia(selectedTrivia);
       toast.success("Trivia exportada correctamente");
@@ -204,9 +203,9 @@ const CreatorSection = () => {
         <PreguntaCreador onAddQuestion={addQuestion} questionData={questionsData[questionNumber]} />
       </div>
       <div className="creator-buttons">
-              <button onClick={handleBeforeQuestion} disabled={questionNumber < 1}>Anterior</button>
-              <button onClick={handleFinishQuestions}>Terminar Trivia</button>
-              <button onClick={handleNextQuestion} disabled={questionNumber >= lastQuestionNumber}>Siguiente</button>
+              <button onClick={handleBeforeQuestion} disabled={questionNumber < 1} aria-label="Pregunta anterior">Anterior</button>
+              <button onClick={handleFinishQuestions} aria-label="Terminar y guardar trivia">Terminar Trivia</button>
+              <button onClick={handleNextQuestion} disabled={questionNumber >= lastQuestionNumber} aria-label="Pregunta siguiente">Siguiente</button>
       </div>
     </div>
     ) : (

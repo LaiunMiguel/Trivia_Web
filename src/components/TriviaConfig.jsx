@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef} from "react";
-import TriviaSelected from "./TriviaSelected.jsx";
-import TriviaService from "../../service/TriviaService.js";
 import { useParams } from 'react-router';
 import { toast } from "react-toastify";
+import TriviaSelected from "./TriviaSelected.jsx";
+import TriviaService from "../service/TriviaService.js";
+
 
 
 const TriviaConfig = () => {
@@ -11,7 +12,7 @@ const TriviaConfig = () => {
   const [timeChosen, setTimeChosen] = useState(60);
   const [randomSort, setRandomSort] = useState(false);
   const [vozActive, setVozActive] = useState(false);
-  const [triviaSelected, setTriviaSelected] = useState([]);
+  const [triviaSelected, setTriviaSelected] = useState(null);
   const [isImporting, setIsImporting] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const menuRef = useRef(null);
@@ -27,12 +28,13 @@ const TriviaConfig = () => {
   useEffect(() => {
     const trivia = triviaService.getTriviaById(trivia_id);
     setTriviaSelected(trivia);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trivia_id]);
 
   useEffect(() => {
     const availableVoices = speechSynthesis.getVoices();
     setVoices(availableVoices);
-  }, [vozActive]);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -51,11 +53,11 @@ const TriviaConfig = () => {
     triviaService.markAsResolved(triviaSelected, score);
   }
 
-  const handeChangeRandomSort = () => {
+  const handleChangeRandomSort = () => {
     setRandomSort(prev => !prev);
   }
 
-  const handeChangeVozActive = () => {
+  const handleChangeVozActive = () => {
     setVozActive(prev =>!prev);
   }
 
@@ -101,21 +103,21 @@ const TriviaConfig = () => {
             <input
               type="number"
               value={timeChosen}
-              onChange={(e) => setTimeChosen(e.target.value)}
+              onChange={(e) => setTimeChosen(Math.max(1, Number(e.target.value)))}
             />
-            <p>Las preguntas se dan en orden aleatorio:</p>
+            <p aria-label="Orden Aleatoria en las preguntas">Las preguntas se dan en orden aleatorio:</p>
             <input
               id="multiple-choice"
               type="checkbox"
               checked={randomSort}
-              onChange={handeChangeRandomSort}
+              onChange={handleChangeRandomSort}
             />
-            <p>Voz Lectora:</p>
+            <p aria-label="VozLectora">Voz Lectora:</p>
             <input
               id="multiple-choice"
               type="checkbox"
               checked={vozActive}
-              onChange={handeChangeVozActive}
+              onChange={handleChangeVozActive}
             />
           </div>
           {vozActive && 
@@ -133,8 +135,8 @@ const TriviaConfig = () => {
 
 
           <div className="ayuda-play" ref={menuRef}>
-          <button onClick={() => handleComenzar()}>Comenzar</button>
-            <button onClick={() => handleHelpButton()}>?</button>
+          <button onClick={() => handleComenzar()} aria-label="Comenzar">Comenzar</button>
+          <button onClick={() => handleHelpButton()} aria-label= "Ayuda">?</button>
           </div>
 
 

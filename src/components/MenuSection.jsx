@@ -1,6 +1,6 @@
-import "../../assets/css/menu.css";
-import { useNavigate } from "react-router";
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router";
+import "../assets/css/Menu.css";
 
 
 export const MODES = {
@@ -9,7 +9,7 @@ export const MODES = {
   MENU: "Menu"
 };
 
-const Menu = () => {
+const MenuSection = () => {
   const navigate = useNavigate();
   const [showInfo, setShowInfo] = useState(false);
   const menuRef = useRef(null);
@@ -18,7 +18,7 @@ const Menu = () => {
     if (newMode === MODES.CREATOR) {
       navigate("/Create");
     } else if (newMode === MODES.PLAY) {
-      navigate("/Play"); // Cambia la ruta a /Play
+      navigate("/Play");
     }
   };
 
@@ -42,11 +42,11 @@ const Menu = () => {
   return (
     <div className="Menu">
         <div className="mode-selector">
-            <button onClick={() => handleModeChange(MODES.CREATOR)}>Crea tu Trivia</button>
-            <button onClick={() => handleModeChange(MODES.PLAY)}>Juega una Trivia</button>
+            <button onClick={() => handleModeChange(MODES.CREATOR)} aria-label="Crea tu Trivia">Crea tu Trivia</button>
+            <button onClick={() => handleModeChange(MODES.PLAY)} aria-label="Juega una Trivia">Juega una Trivia</button>
         </div>
         <div className="ayuda_button" ref={menuRef} >
-            <button onClick={() => handleHelpButton()}>?</button>
+            <button onClick={() => handleHelpButton()} aria-label="Ayuda">?</button>
         </div>
 
         {showInfo && (
@@ -71,4 +71,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default MenuSection;

@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from "react";
 import PreguntaHandler from "./PreguntaHandler.jsx";
-import Timer from "../Atoms/Timer.jsx";
-import ShareMenu from "../Molecules/ShareMenu.jsx";
-import "../../assets/css/TriviaSelected.css";
+import Timer from "./Timer.jsx";
+import ShareMenu from "./ShareMenu.jsx";
+import "../assets/css/TriviaSelected.css";
 import { useNavigate } from 'react-router';
-
-
-
 
 const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort,isVoiceOn,voiceSelected }) => {
   const [cantPreguntas, setCantPreguntas] = useState(0);
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [preguntas, setPreguntas] = useState([]);
-  const [isTimerActive, setIsTimerActive] = useState(false);
+  const [isTimerActive, setIsTimerActive] = useState(true);
   const [isAnswered , setIsAnswered ] = useState(false);
   const [puntaje, setPuntaje] = useState(0);
   const [isFinish, setIsFinish] = useState(false);
-  const [lastQuestionAnsered, setLastQuestionAnswered] = useState(0);
+  const [lastQuestionAnswered, setLastQuestionAnswered] = useState(0);
   const navigate = useNavigate();
-
-
-
 
   useEffect(() => {
     if (randomSort) {
@@ -32,16 +26,12 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort,isVo
     else {
       setPreguntas(questionsData.questions);
     }
-      setPreguntaActual(0);
-      setLastQuestionAnswered(0);
-      setCantPreguntas(questionsData.questions.length);
-      setIsTimerActive(true);
-  }, [questionsData]);
+    setCantPreguntas(questionsData.questions.length);
+  }, [questionsData, randomSort]);
 
   const handleSiguientePregunta = () => {
     if (preguntaActual < preguntas.length - 1  ) {
-
-      if(preguntaActual >= lastQuestionAnsered) {
+      if(preguntaActual >= lastQuestionAnswered) {
         setIsAnswered(false);
         setIsTimerActive(true);
       }
@@ -62,11 +52,12 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort,isVo
   }
 
   const handleAnswer = () => {
-    if(preguntaActual >= lastQuestionAnsered) {
+    if(preguntaActual >= lastQuestionAnswered) {
       setLastQuestionAnswered(preguntaActual);  
     }
     setIsAnswered(true);
-    pauseTimer();
+    setIsTimerActive(false);
+
   };
 
   const handleCorrectAnswer = () => {
@@ -77,11 +68,6 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort,isVo
   const handleIncorrectAnswer = () => {
     handleAnswer();
   }
-
-
-  const pauseTimer = () => {
-    setIsTimerActive(false);
-  };
 
   const handleTimeUp = () => {
     handleSiguientePregunta();
@@ -98,11 +84,11 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort,isVo
             <h2>Tiempo restante: <Timer key={preguntaActual} timeLimit={timeChosen} onTimeUp={handleTimeUp} isActive={isTimerActive} /></h2>
           </div>
             {preguntas.length > 0 && (
-              <PreguntaHandler questionData={preguntas[preguntaActual]} onAnswerCorrect={handleCorrectAnswer} onAnswerIncorrect={handleIncorrectAnswer} alredyResponded={isAnswered} isVoiceOn={isVoiceOn} voiceSelected={voiceSelected} />
+              <PreguntaHandler questionData={preguntas[preguntaActual]} onAnswerCorrect={handleCorrectAnswer} onAnswerIncorrect={handleIncorrectAnswer} alreadyResponded={isAnswered} isVoiceOn={isVoiceOn} voiceSelected={voiceSelected} />
             )}
           <div className="pregunta-buttons">
-              <button onClick={handleAnteriorPregunta} disabled={preguntaActual === 0}>Anterior</button>
-              <button onClick={handleSiguientePregunta} disabled={preguntaActual >= preguntas.length || !isAnswered}>Siguiente</button>
+              <button onClick={handleAnteriorPregunta} disabled={preguntaActual === 0} aria-label="Anterior">Anterior</button>
+              <button onClick={handleSiguientePregunta} disabled={!isAnswered} aria-label="Siguiente">Siguiente</button>
           </div>
         </>
       ) : (
@@ -116,12 +102,11 @@ const TriviaSelected = ({ questionsData, timeChosen,handleFinish,randomSort,isVo
                   text="¡Juega esta trivia!" 
                 />
             )}
-            <button onClick={() => {navigate("/Play")}}>Volver al Menu</button>
+            <button onClick={() => {navigate("/Play")}} aria-label="Volver al Menu" >Volver al Menu</button>
           </div>
         </div>
       )}
     </div>
   );
 };
-
 export default TriviaSelected;
